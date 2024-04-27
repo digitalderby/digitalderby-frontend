@@ -1,7 +1,6 @@
 @import url(../../vars.css);
 
 .navbar {
-  background-color: var(--color-bg);
   width: 100%;
   position: relative;
   display: flex;
@@ -14,11 +13,11 @@
 }
 
 .title {
-  font-family: "Roboto";
-  font-size: 40px;
+  font-family: 'Dancing Script Variable';
+  font-size: 33px;
   font-weight: 600;
   text-decoration: none;
-  color: #fff;
+  color: var(--color-accent);
   margin-left: 10px;
 }
 
