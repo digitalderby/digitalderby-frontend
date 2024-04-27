@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Navbar.module.css';
 import { getImageUrl } from '../../utils';
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,9 +17,10 @@ function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)} 
         />
         <ul className={`${styles.menuitems} ${menuOpen ? styles.visible : styles.hidden}`}>
-          <li><a href="#">Login </a></li>
-          <li><a href="#">Next Race </a></li>
-          <li><a href="#">Horse Stats </a></li>
+          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/race">Next Race</NavLink>
+          <NavLink to="/horses">Horse Stats</NavLink>
+          <NavLink to="/user">User</NavLink>
         </ul>
       </div>
     </nav>
