@@ -4,9 +4,11 @@ import Navbar from './components/Navbar/Navbar'
 function App() {
 
   return (
+    <>
     <div className={styles.App}>
       <Navbar />
     </div>
+    </>
   );
 }
 
