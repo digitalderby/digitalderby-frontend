@@ -16,9 +16,9 @@ function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)} 
         />
         <ul className={`${styles.menuitems} ${menuOpen ? styles.visible : styles.hidden}`}>
-          <li><a href="#race1">Race </a></li>
-          <li><a href="#race2">Race </a></li>
-          <li><a href="#race3">Race </a></li>
+          <li><a href="#">Login </a></li>
+          <li><a href="#">Next Race </a></li>
+          <li><a href="#">Horse Stats </a></li>
         </ul>
       </div>
     </nav>
