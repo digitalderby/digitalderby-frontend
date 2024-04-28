@@ -26,12 +26,14 @@
 }
 
 #wallet {
-    position: absolute;
-    top: 1.5em;
-    right: 2.5em;
     border: solid 3px;
     border-radius: 3px;
     padding: 5px 10px;
     background-color: hsl(216, 31%, 19%);
     color: white;
+    margin: 0px 15px;
+}
+
+#bankrupcies {
+    padding: 0px 15px
 }

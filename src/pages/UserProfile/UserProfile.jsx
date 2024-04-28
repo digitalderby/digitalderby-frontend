@@ -15,13 +15,23 @@ const UserProfile = () => {
     fetchData();
   }, []);
 
+  // TODO: display wallet info on nav element
   // TODO: display profile data here
   return (
     <section className="flex grow flex-col items-center userProfile">
       <div className="w-4/5 h-full profile-box flex flex-col">
         <h2>USERNAME</h2>
-        <div id="wallet">$100</div>
-        <div className="flex grow flex-col justify-center">
+        <div className="flex flex-col justify-center h-1/4">
+          <div className="flex justify-center m-2">
+            <p>Wallet Amount: </p>
+            <span id="wallet">$100</span>
+          </div>
+          <div className="flex justify-center m-2">
+            <p>Bankrupcies: </p>
+            <span id="bankrupcies">0</span>
+          </div>
+        </div>
+        <div className="flex grow flex-col justify-start mt-10">
           <div className="addtlStats">
             {/*additional info here */}
           </div>
