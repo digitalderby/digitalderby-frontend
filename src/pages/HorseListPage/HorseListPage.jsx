@@ -1,5 +1,5 @@
-import useAllHorses from './hooks/useAllHorses';
-import HorseList from './components/HorseList';
+import useAllHorses from '../../hooks/useAllHorses';
+import HorseList from '../../components/HorseList/HorseList';
 
 function HorseListPage() {
     const { horses, loading, error } = useAllHorses();

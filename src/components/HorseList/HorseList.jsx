@@ -1,11 +1,10 @@
-
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';  // Correct import for navigation
 
 function HorseList({ horses }) {
-    const history = useHistory();
+    const navigate = useNavigate();  
 
     const handleHorseClick = (id) => {
-        history.push(`/horses/${id}`);
+        navigate(`/horses/${id}`);
     };
 
     return (
