@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Routes, Route } from "react-router-dom";
 import styles from "./App.module.css";
 import Hero from "./components/Hero/Hero";
 import Navbar from "./components/Navbar/Navbar";
@@ -20,7 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/horses" element={<HorseListPage />} />
-          <Route path="/horses/:id" component={<HorseDetailPage />} />
+          <Route path="/horses/:id" element={<HorseDetailPage />} />
         </Routes>
       </div>
     </>
