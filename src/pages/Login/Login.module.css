@@ -3,9 +3,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;  
+  min-height: 100vh;
+  padding-top: 50px; 
+  box-sizing: border-box; 
+  position: relative;
+  top: -100px; 
 }
-
 /* Title styling */
 .title {
   margin-bottom: 20px; /* Space below the title */
