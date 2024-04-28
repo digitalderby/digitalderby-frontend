@@ -3,20 +3,20 @@ import styles from './Login.module.css';
 
 function Login() {
   return (
-    <div>
+    <div className={styles.authForm}>
       <h1 className={styles.title}>Login</h1>
       <form action=''>
-        <div>
+        <div className={styles.email}>
           <input type='email' />
           <label htmlFor='' >Your Email</label>
         </div>
-        <div>
+        <div className={styles.password}>
           <input type='password' />
           <label htmlFor='' >Password</label>
         </div>
-        <button type='submit'>Login</button>
+        <button className={styles.loginBtn} type='submit'>Login</button>
         <div>
-          <span>New Here? <Link to='/register'>Create an account</Link></span>
+          <span className={styles.register}>New here? <Link to='/register'>Create an account</Link></span>
         </div>
       </form>
     </div>
