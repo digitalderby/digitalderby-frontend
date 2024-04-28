@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null); 
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -12,7 +12,8 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
       console.log('Login successful:', response.data);
     } catch (error) {
-      console.error('Login failed:', error.response.data);
+      console.error('Login failed:', error);
+      console.error('Detailed error:', error.response ? error.response.data : "No detailed error");
     }
   };
 
@@ -22,7 +23,8 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
       console.log('Registration successful:', response.data);
     } catch (error) {
-      console.error('Registration failed:', error.response.data);
+      console.error('Registration failed:', error);
+      console.error('Detailed error:', error.response ? error.response.data : "No detailed error");
     }
   };
 
