@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './userProfile.css'
 import { getProfileData } from '../../services/apiService'
 
 const UserProfile = () => {
   const [profileData, setProfileData] = useState()
-
+  //TODO: implement fetching by userID
   useEffect(() => {
     const fetchData = async() => {
       const apiResponse = await getProfileData()
@@ -14,10 +14,10 @@ const UserProfile = () => {
     fetchData()
   }, [])
 
+  // TODO: display profile data here
   return (
-    <div>
+    <div className=''>
       <h2>User Profile</h2>
-      // TODO: display profile data here
     </div>
   )
 }

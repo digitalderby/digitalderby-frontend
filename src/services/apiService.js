@@ -3,7 +3,7 @@ import { api } from "./apiConnection";
 // GET
 // TODO: update route address
 export const getProfileData = async (payload) => {
-    return await api.post('/user/profile', payload)
+    return await api.post('/users/', payload)
 }
 
 // POST
