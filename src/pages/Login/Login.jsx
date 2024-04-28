@@ -1,26 +1,42 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useState } from 'react';
+import { loginUser, registerUser } from '../../services/apiService';
 
 
 function Login() {
+  const navigate = useNavigate()
+
   const [registering, setRegistering] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
 
   function handleToggleRegister() {
     registering ? setRegistering(false) : setRegistering(true)
   }
 
+  async function handleSubmitForm(e) {
+    e.preventDefault()
+    const apiResponse = registering
+      ? await registerUser(username, password)
+      : await loginUser(username, password)
+    console.log(apiResponse)
+    if (apiResponse.status === 200) {
+      navigate('/')
+    }
+  }
   
   return (
     <div className={styles.authForm}>
       <h1 className={styles.title}>{registering ? "Register" : "Login"}</h1>
-      <form action=''>
+      <form onSubmit={handleSubmitForm}>
         <div className={styles.email}>
-          <input type='text' name='username'/>
+          <input type='text' name='username' value={username} onChange={(e) => setUsername(e.target.value)}/>
           <label htmlFor='username' >Username</label>
         </div>
         <div className={styles.password}>
-          <input type='password' name='password'/>
+          <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
           <label htmlFor='password' >Password</label>
         </div>
         <button className={styles.loginBtn} type='submit'>{registering ? "Submit User" : "Login"}</button>
