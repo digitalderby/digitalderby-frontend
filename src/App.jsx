@@ -18,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/horses" element />
+          <Route path="/horses/:id" component />
         </Routes>
       </div>
     </>
