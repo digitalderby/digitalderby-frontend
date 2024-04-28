@@ -1,0 +1,75 @@
+.authForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 50px; 
+  box-sizing: border-box; 
+  position: relative;
+  top: -100px; 
+}
+/* Title styling */
+.title {
+  margin-bottom: 20px; /* Space below the title */
+  font-size: 2.5rem; /* Large and readable title */
+  color: #fff;
+}
+
+/* Email and Password input container styles */
+.email, .password {
+  margin-bottom: 15px; /* Space between input fields */
+  width: 100%; /* Full width to align inputs */
+  max-width: 400px; /* Limiting max width for better aesthetics on larger screens */
+}
+
+/* Styles for inputs */
+.email input, .password input {
+  width: 100%; /* Full width of their containers */
+  padding: 12px 20px; /* Adequate padding for better text visibility */
+  font-size: 1.2rem; /* Larger text for easy reading */
+  border: 2px solid #ccc; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Border box for better padding handling */
+}
+
+/* Label styling for clarity and focus */
+label {
+  display: block;
+  margin-top: 5px; /* Space between input and label */
+  color: #fff; /* Slightly darker text for readability */
+}
+
+/* Login button styling for a modern look */
+.loginBtn {
+  width: 100%; /* Match width of inputs */
+  max-width: 400px; /* Consistent width with inputs */
+  padding: 10px 20px; /* Comfortable padding */
+  font-size: 1.2rem; /* Visible and legible font size */
+  color: white; /* Text color */
+  background-color: #0056b3; /* Deep blue background */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.loginBtn:hover {
+  background-color: #003580; /* Darker shade on hover */
+}
+
+/* Register link styling */
+.register {
+  margin-top: 20px; /* Space above register text */
+  font-size: 1rem; /* Good size for readability */
+  color: var(--color-accent);
+}
+
+.register a {
+  color: #007bff; /* Bootstrap's link color for familiarity */
+  text-decoration: none; /* No underline */
+}
+
+.register a:hover {
+  text-decoration: underline; /* Underline on hover for better user interaction feedback */
+}

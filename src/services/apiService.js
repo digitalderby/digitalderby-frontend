@@ -7,12 +7,12 @@ export const getProfileData = async (payload) => {
 }
 
 // POST
-export const registerUser = async (payload) => {
-    return await api.post('/user/register', payload)
+export const registerUser = async (username, password) => {
+    return await api.post('/auth/signup', {username, password})
 }
 
-export const loginUser = async (payload) => {
-    return await api.post('/user/login', payload)
+export const loginUser = async (username, password) => {
+    return await api.post('/auth/login', {username, password})
 }
 
 //TODO: Logout user function
