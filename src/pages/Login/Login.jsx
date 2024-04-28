@@ -11,8 +11,8 @@ function Login() {
           <label htmlFor='' >Your Email</label>
         </div>
         <div>
-          <input type='email' />
-          <label htmlFor='' >Your Email</label>
+          <input type='password' />
+          <label htmlFor='' >Password</label>
         </div>
         <button type='submit'>Login</button>
         <div>
