@@ -1,0 +1,70 @@
+.authForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 50px; 
+  box-sizing: border-box; 
+  position: relative;
+  top: -100px; 
+}
+
+.title {
+  margin-bottom: 20px; /* Space below the title */
+  font-size: 2.5rem; /* Large and readable title */
+  color: #fff;
+}
+
+.email, .password {
+  margin-bottom: 15px; /* Space between input fields */
+  width: 100%; /* Full width to align inputs */
+  max-width: 400px; /* Limiting max width for better aesthetics on larger screens */
+}
+
+.email input, .password input, .confirmPassword input, .username input {
+  width: 100%; /* Full width of their containers */
+  padding: 12px 20px; /* Adequate padding for better text visibility */
+  font-size: 1.2rem; /* Larger text for easy reading */
+  border: 2px solid #ccc; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Border box for better padding handling */
+}
+
+.confirmPassword {
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.registerBtn {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #4CAF50; /* A different color to distinguish from login */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.registerBtn:hover {
+  background-color: #45A049; /* Darker green on hover */
+}
+
+.login {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: var(--color-accent);
+}
+
+.login a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login a:hover {
+  text-decoration: underline;
+}

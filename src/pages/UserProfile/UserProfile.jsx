@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import './userProfile.css'
 import { getProfileData } from '../../services/apiService'
 
