@@ -21,20 +21,21 @@ function Login() {
       const apiResponse = registering
         ? await registerUser(username, password)
         : await loginUser(username, password);
-
+  
       console.log(apiResponse);
-      if (apiResponse.status === 200) {
+      if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
         navigate('/');
       } else {
-        // Handle non-200 responses
-        throw new Error(apiResponse.data || 'Unexpected error occurred');
+        throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
     } catch (err) {
-      // Set the error state to display the error message
-      setError(err.message || 'Error during login/register');
+      // robust error handling
+      const message = err.response?.data?.message || err.message || 'Error during login/register';
+      setError(message);
       console.error('Error:', err);
     }
   }
+  
   
   return (
     <div className={styles.authForm}>
