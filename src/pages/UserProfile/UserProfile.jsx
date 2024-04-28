@@ -17,15 +17,57 @@ const UserProfile = () => {
 
   // TODO: display profile data here
   return (
-    <div className="flex grow flex-col">
-      <h2>User Profile</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum id impedit
-        natus quis voluptatum autem quia fuga molestiae nemo repudiandae
-        laudantium, dignissimos excepturi aliquam suscipit, nihil modi, qui
-        animi quaerat!
-      </p>
-    </div>
+    <section className="flex grow flex-col items-center userProfile">
+      <div className="w-4/5 h-full profile-box flex flex-col">
+        <h2>USERNAME</h2>
+        <div id="wallet">$100</div>
+        <div className="flex grow flex-col justify-center">
+          <div className="addtlStats">
+            {/*additional info here */}
+          </div>
+          <div className="w-full text-center">
+            <h3 className="border-y-2 border-black">BET LOG</h3>
+          </div>
+          <table id="betLog" className="p-5 border-b-2 border-black">
+            <thead>
+              <tr>
+                <th scope="col">Game</th>
+                <th scope="col">Horse</th>
+                <th scope="col">Bet</th>
+                <th scope="col">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>game data</td>
+                <td>horse name</td>
+                <td>Bet amount</td>
+                <td>+200</td>
+              </tr>
+              <tr>
+                <td>game data</td>
+                <td>horse name</td>
+                <td>Bet amount</td>
+                <td>+200</td>
+              </tr>
+              <tr>
+                <td>game data</td>
+                <td>horse name</td>
+                <td>Bet amount</td>
+                <td>+200</td>
+              </tr>
+              <tr>
+                <td>game data</td>
+                <td>horse name</td>
+                <td>Bet amount</td>
+                <td>+200</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </section>
   );
 };
 
