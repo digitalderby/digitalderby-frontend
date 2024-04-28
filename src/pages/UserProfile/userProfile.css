@@ -1,0 +1,39 @@
+.userProfile h2 {
+    font-size: 3em;
+    margin: 10px 30px;
+}
+.userProfile h3 {
+    font-size: 1.5em;
+}
+
+.profile-box {
+    background-color: hsl(215, 32%, 38%);
+    border-radius: 2px;
+    position: relative;
+}
+
+#betLog {
+    box-sizing: border-box;
+    table-layout: fixed;
+}
+
+#betLog tbody td {
+    text-align: center;
+}
+
+#betLog tbody tr:nth-child(odd) {
+    background-color:  hsl(215, 35%, 34%);
+}
+
+#wallet {
+    border: solid 3px;
+    border-radius: 3px;
+    padding: 5px 10px;
+    background-color: hsl(216, 31%, 19%);
+    color: white;
+    margin: 0px 15px;
+}
+
+#bankrupcies {
+    padding: 0px 15px
+}
