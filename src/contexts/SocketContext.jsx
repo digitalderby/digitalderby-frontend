@@ -15,6 +15,10 @@ export function SocketContextProvider({ children }) {
     function onConnect() {
       setConnected(true)
     }
+    function onReceiveUsername(name) {
+      console.log(name)
+      setUsername(name) 
+    }
 
     function onDisconnect() {
       setConnected(false)
@@ -36,6 +40,7 @@ export function SocketContextProvider({ children }) {
     }
 
     socket.on('connect', onConnect)
+    socket.on('username', onReceiveUsername)
     socket.on('disconnect', onDisconnect)
     socket.on('gamestate', onGameState)
     socket.on('currentBet', onCurrentBet)
@@ -43,6 +48,7 @@ export function SocketContextProvider({ children }) {
 
     return () => {
       socket.off('connect', onConnect)
+      socket.off('username', onReceiveUsername)
       socket.off('disconnect', onDisconnect)
       socket.off('gamestate', onGameState)
       socket.off('currentBet', onCurrentBet)

@@ -14,6 +14,51 @@ export default function TestPage() {
     connected
   } = useContext(SocketContext)
 
+  let prettifiedGameState = gameState
+  if (gameState !== null) {
+    prettifiedGameState = {
+      status: gameState.status,
+      lag: gameState.lag,
+    }
+
+    if (gameState.status === 'betting') {
+      prettifiedGameState = {
+        ...prettifiedGameState,
+        horses: gameState.race.horses.map((h) => ({
+          name: h.spec.name
+        }))
+      }
+    }
+
+    if (gameState.status === 'race') {
+      prettifiedGameState = {
+        ...prettifiedGameState,
+        horses: gameState.raceStates.horseStates.map((hs) => {
+          return {
+            name: hs.horse.name,
+            position: hs.position,
+            finishTime: hs.finishTime,
+          }
+        }),
+        rankings: gameState.raceStates.rankings,
+      }
+    }
+
+    if (gameState.status === 'results') {
+      prettifiedGameState = {
+        ...prettifiedGameState,
+        horses: gameState.raceStates.horseStates.map((hs) => {
+          return {
+            name: hs.horse.name,
+            position: hs.position,
+            finishTime: hs.finishTime,
+          }
+        }),
+        rankings: gameState.raceStates.rankings,
+      }
+    }
+  }
+
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
 
@@ -42,9 +87,14 @@ export default function TestPage() {
         />
         <button type="submit">submit</button>
       </form>
+      <div>
+        {(connected)
+          ? (<>logged in as {username}</>)
+          : (<>not connected</>) }
+      </div>
       <div style={{textAlign: 'left', backgroundColor: 'black', color: 'white',}}>
         <pre>
-          {JSON.stringify(gameState, null, 2)}
+          {JSON.stringify(prettifiedGameState, null, 2)}
         </pre>
       </div>
     </>
