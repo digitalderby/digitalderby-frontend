@@ -21,6 +21,7 @@ function Navbar() {
           <NavLink to="/race">Next Race</NavLink>
           <NavLink to="/horses">Horse Stats</NavLink>
           <NavLink to="/user">User</NavLink>
+          <NavLink to="/test">Test</NavLink>
         </ul>
       </div>
     </nav>

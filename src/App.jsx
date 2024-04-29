@@ -7,6 +7,7 @@ import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
 import HorseListPage from "./pages/HorseListPage/HorseListPage.jsx";
 import HorseDetailPage from "./pages/HorseDetailPage/HorseDetailPage.jsx";
+import TestPage from "./pages/TestPage/TestPage.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/horses" element={<HorseListPage />} />
           <Route path="/horses/:id" element={<HorseDetailPage />} />
+          <Route path="/test" element={<TestPage />} />
         </Routes>
       </div>
     </>
