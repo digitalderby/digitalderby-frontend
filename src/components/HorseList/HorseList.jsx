@@ -1,20 +1,22 @@
-import { useNavigate } from 'react-router-dom';  // Correct import for navigation
+
+import { useNavigate } from 'react-router-dom';
+import HorseCard from '../HorseCard/HorseCard';
 
 function HorseList({ horses }) {
-    const navigate = useNavigate();  
+    const navigate = useNavigate();
 
     const handleHorseClick = (id) => {
         navigate(`/horses/${id}`);
     };
 
     return (
-        <ul>
+        <div>
             {horses.map(horse => (
-                <li key={horse._id} onClick={() => handleHorseClick(horse._id)}>
-                    {horse.name}
-                </li>
+                <div key={horse._id} onClick={() => handleHorseClick(horse._id)}>
+                    <HorseCard horse={horse} />
+                </div>
             ))}
-        </ul>
+        </div>
     );
 }
 

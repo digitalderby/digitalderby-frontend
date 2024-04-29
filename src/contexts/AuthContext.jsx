@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
-import { setToken, removeToken } from '../services/tokenService';
+import { removeToken } from '../services/tokenService';
 
 const AuthContext = createContext(null);
 
@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post('/api/login', { username, password });
       if (response.status === 200) {
         setUser(response.data);
-        setToken(response.data.token);
         setError(null);  // Clear error on successful login
         console.log('Login successful:', response.data);
       } else {
@@ -30,7 +29,6 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post('/api/register', { username, password, email });
       if (response.status === 200) {
         setUser(response.data);
-        setToken(response.data.token)
         setError(null);  // Clear error on successful registration
         console.log('Registration successful:', response.data);
       } else {

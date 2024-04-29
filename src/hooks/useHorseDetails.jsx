@@ -7,28 +7,19 @@ const useHorseDetails = (horseId) => {
 
     useEffect(() => {
         const fetchHorse = async () => {
+            setLoading(true);
             try {
-                // placeholder
-                const data = {
-                    _id: horseId,
-                    name: horseId === '1' ? 'Thunder' : (horseId === '2' ? 'Lightning' : 'Blaze'),
-                    color: horseId === '1' ? 'Black' : (horseId === '2' ? 'White' : 'Chestnut'),
-                    stats: { speed: horseId === '1' ? 100 : (horseId === '2' ? 110 : 105) },
-                };
+                const response = await fetch(`/horses/${horseId}`);
+                console.log('Response:', response);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log('Fetched horse data:', data);
                 setHorse(data);
-                setError(null);
-
-
-
-                // const response = await fetch(`/api/horses/${horseId}`);
-                // if (!response.ok) {
-                //     throw new Error(`HTTP error! Status: ${response.status}`);
-                // }
-                // const data = await response.json();
-                // setHorse(data);
             } catch (error) {
-                setError(error.message);
                 console.error("Error fetching horse details:", error);
+                setError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -37,9 +28,10 @@ const useHorseDetails = (horseId) => {
         if (horseId) {
             fetchHorse();
         }
-    }, [horseId]); // This ensures the hook refetches data if the horseId changes
+    }, [horseId]);
 
     return { horse, loading, error };
 };
+
 
 export default useHorseDetails;

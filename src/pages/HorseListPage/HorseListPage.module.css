@@ -1,0 +1,22 @@
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 600;
+  padding: 10px;
+  margin: 15px;
+}
+
+.horseList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; /* Space between horse cards */
+  color: white;
+}
+
+.horseCard {
+  flex: 0 0 calc(25% - 20px); 
+  max-width: calc(25% - 20px); 
+}
