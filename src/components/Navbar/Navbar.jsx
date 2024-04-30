@@ -25,6 +25,7 @@ function Navbar() {
           <NavLink to="/race" onClick={handleLinkClick}>Next Race</NavLink>
           <NavLink to="/horses" onClick={handleLinkClick}>Horse Stats</NavLink>
           <NavLink to="/user" onClick={handleLinkClick}>User</NavLink>
+          <NavLink to="/test" onClick={handleLinkClick}>Test</NavLink>
         </ul>
       </div>
     </nav>
