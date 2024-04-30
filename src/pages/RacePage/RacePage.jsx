@@ -17,11 +17,6 @@ const RacePage = () => {
         connected
     } = useContext(SocketContext)
 
-    useEffect(() => {
-        console.log(gameState)
-      }, [gameState])
-
-    // switch rendered component based on game state
     switch (gameState?.status) {
         case "betting":
             return <BettingMode gameState={gameState}/>
@@ -33,7 +28,7 @@ const RacePage = () => {
             return <ResultsMode gameState={gameState}/>
             break;
         default : 
-            return <div>default case</div>
+            return <RaceMode gameState={gameState}/>
             break;
     }
 }
