@@ -22,7 +22,7 @@ const RacePage = () => {
       }, [gameState])
 
     // switch rendered component based on game state
-    switch (gameState.status) {
+    switch (gameState?.status) {
         case "betting":
             return <BettingMode gameState={gameState}/>
             break;
