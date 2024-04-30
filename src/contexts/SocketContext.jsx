@@ -1,66 +1,42 @@
 import { createContext, useEffect, useState } from "react";
 import { connect, socket } from "../services/socketService";
-import { getToken } from "../services/tokenService"
 
-export const SocketContext = createContext(null)
+export const SocketContext = createContext(null);
 
 export function SocketContextProvider({ children }) {
-  const [connected, setConnected] = useState(socket.connected)
-  const [username, setUsername] = useState('')
-  const [gameState, setGameState] = useState(null)
-  
-  const [betResults, setBetResults] = useState(null)
-  const [currentBet, setCurrentBet] = useState(null)
-
-  const connectUser = () => {
-    const token = getToken()
-    connect(token)
-  }
+  const [connected, setConnected] = useState(socket.connected);
+  const [username, setUsername] = useState('');
+  const [gameState, setGameState] = useState(null);
+  const [betResults, setBetResults] = useState(null);
+  const [currentBet, setCurrentBet] = useState(null);
 
   useEffect(() => {
-    function onConnect() {
-      setConnected(true)
-    }
-    function onReceiveUsername(name) {
-      console.log(name)
-      setUsername(name) 
-    }
-
-    function onDisconnect() {
-      setConnected(false)
-      setBetResults(null)
-      setCurrentBet(null)
-      setGameState(null)
-    }
-
-    function onGameState(state) {
-      setGameState(state)
-    }
-
-    function onCurrentBet(bet) {
-      setCurrentBet(bet)
-    }
-
-    function onBetResults(results) {
-      setBetResults(results)
-    }
-
-    socket.on('connect', onConnect)
-    socket.on('username', onReceiveUsername)
-    socket.on('disconnect', onDisconnect)
-    socket.on('gamestate', onGameState)
-    socket.on('currentBet', onCurrentBet)
-    socket.on('betResults', onBetResults)
+    socket.on('connect', () => setConnected(true));
+    socket.on('username', (name) => setUsername(name));
+    socket.on('disconnect', () => {
+      setConnected(false);
+      setBetResults(null);
+      setCurrentBet(null);
+      setGameState(null);
+    });
+    socket.on('gamestate', setGameState);
+    socket.on('currentBet', setCurrentBet);
+    socket.on('betResults', setBetResults);
 
     return () => {
-      socket.off('connect', onConnect)
-      socket.off('username', onReceiveUsername)
-      socket.off('disconnect', onDisconnect)
-      socket.off('gamestate', onGameState)
-      socket.off('currentBet', onCurrentBet)
-      socket.off('betResults', onBetResults)
-    }
-  }, [])
+      socket.off('connect');
+      socket.off('username');
+      socket.off('disconnect');
+      socket.off('gamestate');
+      socket.off('currentBet');
+      socket.off('betResults');
+    };
+  }, []);
+
+  // Function to connect the socket, exposed through context
+  const connectSocket = (token) => {
+    connect(token); 
+  };
 
   return (
     <SocketContext.Provider value={{
@@ -69,9 +45,10 @@ export function SocketContextProvider({ children }) {
       username,
       currentBet,
       betResults,
-      connectUser
+      connectSocket, // Expose connectSocket function
     }}>
       {children}
     </SocketContext.Provider>
-  )
+  );
 }
+
