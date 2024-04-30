@@ -8,6 +8,7 @@ import Register from "./pages/Register/Register.jsx";
 import HorseListPage from "./pages/HorseListPage/HorseListPage.jsx";
 import HorseDetailPage from "./pages/HorseDetailPage/HorseDetailPage.jsx";
 import TestPage from "./pages/TestPage/TestPage.jsx";
+import RacePage from "./pages/RacePage/RacePage.jsx";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Hero />} />
-          <Route path="/race" element />
+          <Route path="/race" element={<RacePage />}/>
           <Route path="/user" element={<UserProfile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
