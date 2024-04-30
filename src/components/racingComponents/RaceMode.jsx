@@ -6,6 +6,7 @@ const RaceMode = ({gameState}) => {
   // }, [gameState])
   let prettifiedGameState = gameState
 
+
   return (
     <>
       <div>RaceMode</div>
