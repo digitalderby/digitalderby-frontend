@@ -1,18 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { loginUser, registerUser } from '../../services/apiService';
+import { SocketContext } from '../../contexts/SocketContext';
 
 function Login() {
   const navigate = useNavigate();
+  const { connectSocket } = useContext(SocketContext);
   const [registering, setRegistering] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');  // State to hold any login or registration errors
+  const [error, setError] = useState('');
 
   function handleToggleRegister() {
     setRegistering(!registering);
-    setError('');  // Clear errors when toggling between login and register
+    setError('');
   }
 
   async function handleSubmitForm(e) {
@@ -22,21 +24,20 @@ function Login() {
         ? await registerUser(username, password)
         : await loginUser(username, password);
   
-      console.log(apiResponse);
       if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
+        sessionStorage.setItem('token', apiResponse.data.token); 
+        connectSocket(apiResponse.data.token); 
         navigate('/');
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
     } catch (err) {
-      // robust error handling
       const message = err.response?.data?.message || err.message || 'Error during login/register';
       setError(message);
       console.error('Error:', err);
     }
   }
-  
-  
+
   return (
     <div className={styles.authForm}>
       <h1 className={styles.title}>{registering ? "Register" : "Login"}</h1>
@@ -49,7 +50,7 @@ function Login() {
           <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
           <label htmlFor='password'>Password</label>
         </div>
-        {error && <div className={styles.error}>{error}</div>}  {/* Display the error message */}
+        {error && <div className={styles.error}>{error}</div>}
         <button className={styles.loginBtn} type='submit'>{registering ? "Submit User" : "Login"}</button>
         <div>
           {registering
