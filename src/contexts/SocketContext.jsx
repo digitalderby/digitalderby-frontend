@@ -1,21 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import { connect, socket } from "../services/socketService";
-import { getToken } from "../services/tokenService"
 
 export const SocketContext = createContext(null);
 
 export function SocketContextProvider({ children }) {
-  const [connected, setConnected] = useState(socket.connected)
-  const [username, setUsername] = useState('')
-  const [gameState, setGameState] = useState(null)
-  
-  const [betResults, setBetResults] = useState(null)
-  const [currentBet, setCurrentBet] = useState(null)
-
-  const connectUser = () => {
-    const token = getToken()
-    connect(token)
-  }
+  const [connected, setConnected] = useState(socket.connected);
+  const [username, setUsername] = useState('');
+  const [gameState, setGameState] = useState(null);
+  const [betResults, setBetResults] = useState(null);
+  const [currentBet, setCurrentBet] = useState(null);
 
   useEffect(() => {
     socket.on('connect', () => setConnected(true));
@@ -52,9 +45,10 @@ export function SocketContextProvider({ children }) {
       username,
       currentBet,
       betResults,
-      connectUser
+      connectSocket, // Expose connectSocket function
     }}>
       {children}
     </SocketContext.Provider>
   );
 }
+
