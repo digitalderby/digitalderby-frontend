@@ -1,7 +1,11 @@
-import { useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { getAllHorses } from '../services/apiService';
 
-const useAllHorses = () => {
+// Create the context
+const HorsesContext = createContext();
+
+// Provider component
+export const HorsesProvider = ({ children }) => {
     const [horses, setHorses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -10,25 +14,27 @@ const useAllHorses = () => {
         const fetchHorses = async () => {
             try {
                 const data = await getAllHorses();
-                console.log("Raw fetched data:", data);  // Check what exactly is fetched
                 if (Array.isArray(data)) {
-                    const uniqueHorses = Array.from(new Map(data.map(horse => [horse['_id'], horse])).values());
-                    setHorses(uniqueHorses);
+                    setHorses(data);
                 } else {
                     throw new Error("Data is not an array");
                 }
             } catch (error) {
-                console.error("Error fetching all horses:", error);
                 setError(error.message);
+                console.error("Error fetching all horses:", error);
             } finally {
                 setLoading(false);
             }
         };
-    
         fetchHorses();
     }, []);
 
-    return { horses, loading, error };
+    return (
+        <HorsesContext.Provider value={{ horses, loading, error }}>
+            {children}
+        </HorsesContext.Provider>
+    );
 };
 
-export default useAllHorses;
+// Custom hook to use the context
+export const useHorses = () => useContext(HorsesContext);

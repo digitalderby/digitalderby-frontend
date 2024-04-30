@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
+import { removeToken } from '../services/tokenService';
 
 const AuthContext = createContext(null);
 
@@ -39,8 +40,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    setUser(null);
+    removeToken();
+    console.log('logout successful');
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, error }}>
+    <AuthContext.Provider value={{ user, login, register, logout, error }}>
       {children}
     </AuthContext.Provider>
   );
