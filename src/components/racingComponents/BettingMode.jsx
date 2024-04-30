@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const BettingMode = ({gameState}) => {
   
-  // useEffect(() => {
-  //   console.log(gameState)
-  // }, [gameState])
-  let prettifiedGameState = gameState
-
+  useEffect(() => {
+    console.log(gameState)
+  }, [gameState])
   return (
     <div>BettingMode</div>
   )
