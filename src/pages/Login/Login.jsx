@@ -1,10 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { loginUser, registerUser } from '../../services/apiService';
+import { SocketContext } from '../../contexts/SocketContext';
+import { connect } from '../../services/socketService';
 
 function Login() {
   const navigate = useNavigate();
+  const { connectUser } = useContext(SocketContext)
   const [registering, setRegistering] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +27,9 @@ function Login() {
   
       console.log(apiResponse);
       if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
-        navigate('/');
+        const token = apiResponse.data.token
+        connect(token)
+        navigate('/race');
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
