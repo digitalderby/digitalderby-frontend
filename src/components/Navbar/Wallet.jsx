@@ -1,13 +1,18 @@
-const Wallet = () => {
-    const user = JSON.parse(sessionStorage.getItem('user'));
+import { useState, useEffect } from 'react';
 
-    if (!user) {
-        return null; 
-    }
+const Wallet = () => {
+    const [wallet, setWallet] = useState(0);
+
+    useEffect(() => {
+        const userData = JSON.parse(sessionStorage.getItem('user'));
+        if (userData && userData.wallet) {
+            setWallet(userData.wallet);
+        }
+    }, []);
 
     return (
         <div>
-            Wallet Balance: ${user.walletBalance.toFixed(2)}
+            Wallet Balance: ${wallet.toFixed(2)}
         </div>
     );
 };

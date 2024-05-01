@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
 const ResultsMode = ({ gameState }) => {
-  useEffect(() => {
-    console.log('Current gameState in ResultsMode:', gameState);
-  }, [gameState]);
+  // useEffect(() => {
+  //   console.log('Current gameState in ResultsMode:', gameState);
+  // }, [gameState]);
 
   if (!gameState || !gameState.raceStates || !gameState.raceStates.horseStates) {
     return <div>Loading results...</div>;
