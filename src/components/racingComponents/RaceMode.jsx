@@ -15,8 +15,11 @@ const RaceMode = ({gameState}) => {
             gameState?.raceStates?.horseStates?.map((horse, idx) => {
               //horseStates[idx]
               return <div key={idx} style={{
-                transform: `translateX(${horse.position}px)`
-              }}>horse</div>
+                left: `${(horse.position /5) - 5}%`,
+                top: `${(25 * idx) + 5}%`
+              }}
+              className='horseInRace'
+              >horse</div>
             })
           }
         </div>
@@ -26,3 +29,5 @@ const RaceMode = ({gameState}) => {
 }
 
 export default RaceMode
+
+//                 transform: `translateX(${horse.position}px)`
