@@ -1,15 +1,23 @@
-#raceBackground {
-    background-color: lemonchiffon;
-    background-image: url(/src/assets/image_fx_16_bit_style_overhead_view_of_a_horse_race_tr.jpg);
-    background-size: contain;
+#raceScrollContainer {
     height: 70%;
     width: 80%;
-    border-radius: 3px;
+    position: relative;
+    overflow-x: hidden;
 }
-#raceBackground > div {
+
+#raceBackground {
+    background-color: lemonchiffon;
+    background: url(/src/assets/image_fx_16_bit_style_overhead_view_of_a_horse_race_tr.jpg) repeat-x;
+    background-size: contain;
+    height: 100%;
+    width: 300%;
+    border-radius: 3px;
+    /* animation: slide 10s linear infinite; */
+    background-repeat: repeat-x;
+}
+.boundaries {
     height: 100%;
     width: 90%;
-    position: relative;
 }
 
 .horseInRace {
@@ -17,3 +25,12 @@
     transform: scale(-1,1);
     font-size: 2.5em;
 }
+
+@keyframes slide {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-1000px, 0, 0); 
+    }
+  }
