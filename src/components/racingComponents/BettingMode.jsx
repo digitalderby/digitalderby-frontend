@@ -46,11 +46,13 @@ const BettingMode = ({ userId, gameId }) => {
         }
     };
 
-    const placeBet = async (index) => {
+    const placeBet = async (betValue, index) => {
         const horse = gameState.race.horses[index];
-        const betValue = parseInt(bets[index], 10);
+        console.log(user)
+        // const betValue = parseInt(bets[index], 10);
 
         if (betValue > wallet) {
+            console.log(wallet)
             alert("You don't have enough in your wallet to place this bet.");
             return;
         }
@@ -84,18 +86,19 @@ const BettingMode = ({ userId, gameId }) => {
             <h1>Place Your Bets</h1>
             <h2>Time left: {Math.max(0, timeLeft)} seconds</h2>
             <ul>
-                {gameState.race.horses.map((horse, index) => (
-                    <li key={index}>
+                {gameState.race.horses.map((horse, index) => {
+                    const [betValue, setBetValue] = useState(0)
+                    return <li key={index}>
                         <span>{horse.spec.name} - Top Speed: {horse.topSpeed}, Stamina: {horse.stamina}, Acceleration: {horse.acceleration}</span>
                         <input
                             type="number"
                             placeholder="Bet amount"
-                            value={bets[index] || ''}
-                            onChange={(e) => handleBetChange(index, e.target.value)}
+                            value={betValue}
+                            onChange={(e) => setBetValue(e.target.value) }
                         />
-                        <button onClick={() => placeBet(index)}>Bet</button>
+                        <button onClick={() => placeBet(betValue, index)}>Bet</button>
                     </li>
-                ))}
+                    })}
             </ul>
             <div>Wallet Balance: ${wallet}</div>
         </div>
