@@ -26,6 +26,7 @@ function Login() {
   
       if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
         sessionStorage.setItem('token', apiResponse.data.token); 
+        sessionStorage.setItem('user', JSON.stringify(apiResponse.data.user));
         connectSocket(apiResponse.data.token); 
         navigate('/');
       } else {
