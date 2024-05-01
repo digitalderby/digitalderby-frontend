@@ -11,6 +11,7 @@ export function SocketContextProvider({ children }) {
   const [currentBet, setCurrentBet] = useState(null);
   const [user, setUser] = useState(null);
 
+
   useEffect(() => {
     socket.on('connect', () => setConnected(true));
     socket.on('username', (name) => setUsername(name));

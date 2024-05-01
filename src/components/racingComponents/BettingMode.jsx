@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { SocketContext } from '../../contexts/SocketContext';
+import { socket } from '../../services/socketService';
 
 const BettingMode = ({ userId, gameId }) => {
     const { gameState, currentBet, betResults, connectSocket, user } = useContext(SocketContext);
@@ -37,17 +38,18 @@ const BettingMode = ({ userId, gameId }) => {
         }
     }, [timeLeft]);
 
-    const handleBetChange = (index, value) => {
-        if (!isNaN(value) && value >= 0) {  // Allow only non-negative numeric input
-            setBets(prev => ({
-                ...prev,
-                [index]: parseInt(value, 10)  // Convert to integer
-            }));
-        }
-    };
+    // const handleBetChange = (index, value) => {
+    //     if (!isNaN(value) && value >= 0) {  // Allow only non-negative numeric input
+    //         setBets(prev => ({
+    //             ...prev,
+    //             [index]: parseInt(value, 10)  // Convert to integer
+    //         }));
+    //     }
+    // };
 
     const placeBet = async (betValue, index) => {
         const horse = gameState.race.horses[index];
+        const horseIdx = index
         console.log(user)
         // const betValue = parseInt(bets[index], 10);
 
@@ -57,24 +59,7 @@ const BettingMode = ({ userId, gameId }) => {
             return;
         }
 
-        try {
-            const response = await axios.put('/currentGame/bet', {
-                username: user.username,
-                userId: user.id,
-                betValue,
-                horseIdx: index,
-                horseId: horse.spec._id,
-                gameId,
-            });
-
-            if (response.status === 200) {
-                const updatedWallet = wallet - betValue;
-                setWallet(updatedWallet);
-                console.log(response.data.message);
-            }
-        } catch (error) {
-            console.error('Failed to place bet:', error);
-        }
+        socket.emit('bet', {betValue, horseIdx}, (res) => console.log(res.message) )
     };
 
     if (!gameState || !gameState.race || !gameState.race.horses) {

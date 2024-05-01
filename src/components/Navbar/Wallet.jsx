@@ -5,7 +5,7 @@ const Wallet = () => {
 
 
   const { user } = useContext(SocketContext);
-  console.log(user)
+  // console.log(user)
   if (!user || !user.wallet) {
     return <div>Wallet data not available.</div>;
   }
