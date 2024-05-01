@@ -11,17 +11,19 @@ const RaceMode = ({gameState}) => {
       <div>RaceMode</div>
       <div className='h-full flex justify-center items-center'>
         <div className="" id='raceBackground'>
-          {
-            gameState?.raceStates?.horseStates?.map((horse, idx) => {
-              //horseStates[idx]
-              return <div key={idx} style={{
-                left: `${(horse.position /5) - 5}%`,
-                top: `${(25 * idx) + 5}%`
-              }}
-              className='horseInRace'
-              >horse</div>
-            })
-          }
+          <div>
+            {
+              gameState?.raceStates?.horseStates?.map((horse, idx) => {
+                //horseStates[idx]
+                return <div key={idx} style={{
+                  left: `${(horse.position /100) + 5}%`,
+                  top: `${(25 * idx) + 5}%`
+                }}
+                className='horseInRace'
+                >{horse.horse.spec.icons[0]}</div>
+              })
+            }
+          </div>
         </div>
       </div>
     </>
@@ -29,5 +31,3 @@ const RaceMode = ({gameState}) => {
 }
 
 export default RaceMode
-
-//                 transform: `translateX(${horse.position}px)`
