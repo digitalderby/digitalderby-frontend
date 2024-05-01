@@ -27,7 +27,7 @@ function Login() {
         if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
           sessionStorage.setItem('token', apiResponse.data.token);
           connectSocket(apiResponse.data.token);
-          navigate('/');
+          navigate('/race');
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }

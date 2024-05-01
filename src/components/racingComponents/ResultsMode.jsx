@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './racingComponents.css'
 
 const ResultsMode = ({ gameState }) => {
   // useEffect(() => {
@@ -20,27 +21,29 @@ const ResultsMode = ({ gameState }) => {
 
   return (
     <div className="results-container">
-      <h1>Race Results</h1>
-      {winner ? (
-        <div className="winner">
-          <h2>Winner: {winner.horse.name}</h2>
-          <p>Details:</p>
-          <ul>
-            <li>Finish Time: {winner.finishTime}ms</li>
-            <li>Current Speed: {winner.currentSpeed}</li>
-          </ul>
-        </div>
-      ) : (
-        <p>No results available.</p>
-      )}
-      <h3>All Participants:</h3>
-      <ol>
-        {sortedHorses.map((horse, index) => (
-          <li key={index}>
-            {horse.horse.name} - Finished with a time of {horse.finishTime}ms, Final speed: {horse.currentSpeed}
-          </li>
-        ))}
-      </ol>
+      <div>
+        <h1>Race Results</h1>
+        {winner ? (
+          <div className="winner">
+            <h2>🏆 {winner.horse.name}</h2>
+            <p>Details:</p>
+            <ul>
+              <li>Finish Time: {winner.finishTime / 1000} s</li>
+              <li>Current Speed: {winner.currentSpeed}</li>
+            </ul>
+          </div>
+        ) : (
+          <p>No results available.</p>
+        )}
+        <h3>All Participants:</h3>
+        <ol>
+          {sortedHorses.map((horse, index) => (
+            <li key={index}>
+              {horse.horse.name} - Finished with a time of {horse.finishTime}ms, Final speed: {horse.currentSpeed}
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 };
