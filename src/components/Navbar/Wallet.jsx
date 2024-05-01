@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { SocketContext } from '../../contexts/SocketContext';
 
 const Wallet = () => {
-    const [wallet, setWallet] = useState(0);
 
-    useEffect(() => {
-        const userData = JSON.parse(sessionStorage.getItem('user'));
-        if (userData && userData.wallet) {
-            setWallet(userData.wallet);
-        }
-    }, []);
 
-    return (
-        <div>
-            Wallet Balance: ${wallet.toFixed(2)}
-        </div>
-    );
+  const { user } = useContext(SocketContext);
+  console.log(user)
+  if (!user || !user.wallet) {
+    return <div>Wallet data not available.</div>;
+  }
+
+  return (
+    <div className="wallet-container">
+      <p>Balance: ${user.wallet}</p>
+    </div>
+  );
 };
 
 export default Wallet;

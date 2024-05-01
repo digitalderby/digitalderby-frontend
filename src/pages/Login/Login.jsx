@@ -26,11 +26,6 @@ function Login() {
   
         if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
           sessionStorage.setItem('token', apiResponse.data.token);
-          if (apiResponse.data.user) {
-              sessionStorage.setItem('user', JSON.stringify(apiResponse.data.user));
-          } else {
-              console.error("User data is empty or missing.");
-          }
           connectSocket(apiResponse.data.token);
           navigate('/');
       } else {
