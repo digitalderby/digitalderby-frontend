@@ -9,7 +9,6 @@ const RaceMode = ({gameState}) => {
 
   return (
     <>
-      <div>RaceMode</div>
       <div className='h-full flex justify-center items-center'>
         <div className="" id='raceBackground'>
           <div>

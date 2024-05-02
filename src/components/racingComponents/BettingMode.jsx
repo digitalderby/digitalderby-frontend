@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from './racingComponents.module.css';
+import { getImageUrl } from '../../utils';
+
 
 const BettingMode = ({ gameState, userId, gameId }) => {
     const [bets, setBets] = useState({});
@@ -54,26 +57,33 @@ const BettingMode = ({ gameState, userId, gameId }) => {
     }
 
     return (
-        <div className="betting-container">
-            <h1>Place Your Bets</h1>
+        <>
+        <div className={styles.background}>
+            <img src={getImageUrl('betting/Screenshot.png')} alt='background image'></img>
+        </div>
+        <div className={styles.bettingContainer}>
+            <h1 className={styles.bettingHeader}>Place Your Bets</h1>
             <h2>Time left: {Math.max(0, timeLeft / 1000)} seconds</h2>
-            <ul>
+            <ul className={styles.betList}>
                 {gameState.race.horses.map((horse, index) => (
-                    <li key={index}>
-                        <span>{horse.spec.name} - Top Speed: {horse.topSpeed}, Stamina: {horse.stamina}, Acceleration: {horse.acceleration}</span>
+                    <li className={styles.betListItem} key={index}>
+                        <span className={styles.horseDetails}>{horse.spec.name} - Top Speed: {horse.topSpeed}, Stamina: {horse.stamina}, Acceleration: {horse.acceleration}</span>
                         <input
                             type="number"
+                            className={styles.betInput}
                             placeholder="Bet amount"
                             value={bets[index]}
                             onChange={(e) => handleBetChange(index, e.target.value)}
                             min="1"
                         />
-                        <button onClick={() => placeBet(index)}>Bet</button>
+                        <button className={styles.betButton} onClick={() => placeBet(index)}>Bet</button>
                     </li>
                 ))}
             </ul>
         </div>
+        </>
     );
 };
+
 
 export default BettingMode;

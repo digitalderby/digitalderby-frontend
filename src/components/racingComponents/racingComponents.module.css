@@ -1,0 +1,101 @@
+.background {
+    padding-top: 11%;
+    position: relative;
+    width: 80%;
+    height: 70%;  
+    margin: 0 auto;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+
+.bettingContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 40%;
+    min-height: 300px;
+    background-color: #f4f4f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.bettingHeader {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.betList {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.betListItem {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    justify-content: space-between; /* Spreads items to fill the available space */
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.horseDetails {
+    font-size: 16px;
+    color: #555;
+    flex-grow: 1; /* Allows the details to take up any remaining space */
+}
+
+.betInputWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.betInput {
+    margin-right: 10px;
+    padding: 8px 12px;
+    width: 100px; 
+}
+
+.betButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* Results Mode */
+.results-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.results-container > div {
+    border: solid 5px hsl(215, 39%, 42%);
+    padding: 2em;
+    margin: 20px;
+    color: antiquewhite;
+}
+
+.results-container h1 {
+    font-size: 2em;
+    text-align: center;
+}
+
+.stats {
+    color: white;
+}
