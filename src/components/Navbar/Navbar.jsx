@@ -3,6 +3,7 @@ import styles from './Navbar.module.css';
 import { getImageUrl } from '../../utils';
 import { NavLink } from 'react-router-dom';
 
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
