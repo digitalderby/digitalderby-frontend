@@ -1,0 +1,27 @@
+
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto; 
+  display: flex;
+  width: 1600vh;
+  height: 90vh;
+  background: #1E242C;
+  margin: 0;
+}
+
+.title {
+  font-size: 100px;
+  color: #fff;
+  margin-left: 20px;
+}
+
+.serverBtn {
+  color: red;
+  font-size: 40px;
+  margin-top: 100px;
+}

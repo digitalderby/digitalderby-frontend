@@ -1,7 +1,9 @@
+import styles from './Header.module.css';  
+
 const Header = () => {
   return (
-    <div className="header">
-      {/* Header content */}
+    <div className={styles.header}>
+      <h1>ADMIN</h1>
     </div>
   );
 };

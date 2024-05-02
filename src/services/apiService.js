@@ -28,3 +28,9 @@ export const loginUser = async (username, password) => {
 }
 
 //TODO: Logout user function
+
+export const logoutUser = () => {
+    sessionStorage.removeItem('token');
+    // Redirect user to the login page
+    window.location.href = '/login';
+}

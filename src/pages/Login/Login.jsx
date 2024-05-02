@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useState, useContext } from 'react';
 import { loginUser, registerUser } from '../../services/apiService';
@@ -27,7 +27,12 @@ function Login() {
       if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
         sessionStorage.setItem('token', apiResponse.data.token); 
         connectSocket(apiResponse.data.token); 
-        navigate('/race');
+
+        if (apiResponse.data.isAdmin) {
+          navigate('/admin'); 
+        } else {
+          navigate('/race');  // Redirect regular users to the race page
+        }
 
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
