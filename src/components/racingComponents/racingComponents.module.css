@@ -43,8 +43,8 @@
 
 .betListItem {
     display: flex;
-    align-items: center; /* Aligns items vertically in the center */
-    justify-content: space-between; /* Spreads items to fill the available space */
+    align-items: center; 
+    justify-content: space-between; 
     margin-bottom: 10px;
     padding-left: 10px;
 }
@@ -52,7 +52,7 @@
 .horseDetails {
     font-size: 16px;
     color: #555;
-    flex-grow: 1; /* Allows the details to take up any remaining space */
+    flex-grow: 1; 
 }
 
 .betInputWrapper {

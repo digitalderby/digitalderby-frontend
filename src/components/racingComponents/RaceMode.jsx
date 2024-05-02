@@ -8,22 +8,6 @@ const RaceMode = ({gameState}) => {
 
   return (
     <>
-<<<<<<< HEAD
-      <div className='h-full flex justify-center items-center'>
-        <div className="" id='raceBackground'>
-          <div>
-            {
-              gameState?.raceStates?.horseStates?.map((horse, idx) => {
-                //horseStates[idx]
-                return <div key={idx} style={{
-                  left: `${(horse.position /100) + 5}%`,
-                  top: `${(25 * idx) + 5}%`
-                }}
-                className='horseInRace'
-                >{horse.horse.spec.icons[0]}</div>
-              })
-            }
-=======
       <h2>RaceMode</h2>
       <div className='h-full w-full flex justify-center items-center'>
         <div id='raceScrollContainer'>
@@ -35,7 +19,6 @@ const RaceMode = ({gameState}) => {
               ? {animation:"slide 30s linear infinite"} 
               : null}
             >
->>>>>>> 7822bbd0e69a69d2e7c24d682a3f8184c2bd5620
           </div>
               {
                 gameState?.raceStates?.horseStates?.map((horse, idx) => {
