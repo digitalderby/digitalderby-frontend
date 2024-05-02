@@ -6,10 +6,11 @@ const RaceMode = ({gameState}) => {
   // }, [gameState])
   let prettifiedGameState = gameState
 
+
   return (
     <>
-      <div>RaceMode</div>
-      <div className='h-full flex justify-center items-center'>
+      <h2>RaceMode</h2>
+      <div className='h-full w-full flex justify-center items-center'>
         <div className="" id='raceBackground'>
           <div>
             {

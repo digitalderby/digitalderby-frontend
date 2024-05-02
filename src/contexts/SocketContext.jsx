@@ -9,6 +9,8 @@ export function SocketContextProvider({ children }) {
   const [gameState, setGameState] = useState(null);
   const [betResults, setBetResults] = useState(null);
   const [currentBet, setCurrentBet] = useState(null);
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     socket.on('connect', () => setConnected(true));
@@ -22,6 +24,7 @@ export function SocketContextProvider({ children }) {
     socket.on('gamestate', setGameState);
     socket.on('currentBet', setCurrentBet);
     socket.on('betResults', setBetResults);
+    socket.on('clientStatus', setUser);
 
     return () => {
       socket.off('connect');
@@ -30,6 +33,7 @@ export function SocketContextProvider({ children }) {
       socket.off('gamestate');
       socket.off('currentBet');
       socket.off('betResults');
+      socket.off('clientStatus');
     };
   }, []);
 
@@ -45,6 +49,7 @@ export function SocketContextProvider({ children }) {
       username,
       currentBet,
       betResults,
+      user,
       connectSocket, // Expose connectSocket function
     }}>
       {children}
