@@ -28,7 +28,7 @@ const RacePage = () => {
             return <ResultsMode gameState={gameState}/>
             break;
         default : 
-            return <RaceMode gameState={gameState}/>
+            return <ResultsMode gameState={gameState}/>
             break;
     }
 }

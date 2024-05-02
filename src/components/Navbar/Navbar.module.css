@@ -63,3 +63,11 @@
   cursor: pointer;
   margin-right: 30px;
 }
+
+.wallet {
+  display: flex;
+  font-weight: 600;
+  color: #fff;
+  background-color: black;
+  border: #1E242C;
+}
