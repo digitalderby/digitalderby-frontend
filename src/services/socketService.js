@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 
-export const BACKEND_URL = 'http://localhost:3000'
+export const BACKEND_URL = import.meta.env.VITE_API_URL
 
 export let socket = io(`${BACKEND_URL}/user`, {
     autoConnect: false,

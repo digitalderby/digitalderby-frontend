@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import "./racePage.css"
 import { SocketContext } from '../../contexts/SocketContext';
 import BettingMode from '../../components/racingComponents/BettingMode';
@@ -28,7 +28,7 @@ const RacePage = () => {
             return <ResultsMode gameState={gameState}/>
             break;
         default : 
-            return <RaceMode gameState={gameState}/>
+            return <ResultsMode gameState={gameState}/>
             break;
     }
 }

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styles from './Navbar.module.css';
 import { getImageUrl } from '../../utils';
 import { NavLink } from 'react-router-dom';
+import Wallet from './Wallet';
+
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,6 +15,7 @@ function Navbar() {
   return (
     <nav className={styles.navbar}>
       <a className={styles.title} href="/">Digitalderby</a>
+      <div className={styles.wallet}><Wallet /></div>
       <div className={styles.menu}>
         <img 
           className={styles.menuBtn} 

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const RaceMode = ({gameState}) => {
   // useEffect(() => {
-    // console.log(gameState)
-  // }, [gameState]) 
-  // let racingTime = gameState.raceStates?.time
+  //   console.log(gameState)
+  // }, [gameState])
+  let prettifiedGameState = gameState
+
   return (
     <>
-      <div>RaceMode</div>
-      <div className='h-full flex justify-center items-center'>
+      <h2>RaceMode</h2>
+      <div className='h-full w-full flex justify-center items-center'>
         <div id='raceScrollContainer'>
           <div 
             id='raceBackground'
