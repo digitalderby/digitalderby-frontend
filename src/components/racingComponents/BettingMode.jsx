@@ -6,10 +6,12 @@ import styles from "./racingComponents.module.css";
 import { getImageUrl } from "../../utils";
 import { Modal, Button } from "react-bootstrap";
 import HorsesForBetting from "./HorsesForBetting";
+import { useNavigate } from "react-router";
 
 const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => {
 //   const { gameState, currentBet, betResults, connectSocket, user } =
 //     useContext(SocketContext);
+    const navigate = useNavigate
   const [bets, setBets] = useState({});
   const [timeLeft, setTimeLeft] = useState(
     gameState ? gameState.bettingTimer : 0
@@ -64,7 +66,7 @@ const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => 
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>Place Your Bets!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -76,12 +78,7 @@ const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => 
         <div>Wallet Balance: ${wallet}</div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Save Changes
-        </Button>
+            <Button onClick={() => navigate('/')}>Exit Race</Button>
       </Modal.Footer>
     </Modal>
   );

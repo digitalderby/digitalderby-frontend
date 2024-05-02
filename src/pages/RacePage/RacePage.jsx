@@ -47,9 +47,7 @@ const RacePage = () => {
             <RaceMode gameState={gameState}/>
             <BettingMode gameState={gameState} show={betMode} handleClose={handleCloseBet} user={user}/>
             <ResultsMode gameState={gameState} show={resultsMode} handleClose={handleCloseRes}/>
-            <Button variant="primary" onClick={handleShowBet}>
-                Launch Betting Modal
-            </Button>
+
         </>
     )
 }

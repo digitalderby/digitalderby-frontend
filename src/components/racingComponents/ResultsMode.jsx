@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styles from "./racingComponents.module.css";
+import { useNavigate } from "react-router";
 
 const ResultsMode = ({ gameState, show, handleClose }) => {
   // useEffect(() => {
   //   console.log('Current gameState in ResultsMode:', gameState);
   // }, [gameState]);
+  const navigate = useNavigate()
 
   if (
     !gameState ||
@@ -25,9 +27,9 @@ const ResultsMode = ({ gameState, show, handleClose }) => {
   const winner = sortedHorses[0];
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Place Your Bets!</Modal.Title>
+    <Modal show={show} onHide={handleClose} centered backdrop="static">
+      <Modal.Header>
+        <Modal.Title>Results</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
@@ -56,12 +58,7 @@ const ResultsMode = ({ gameState, show, handleClose }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Save Changes
-        </Button>
+        <Button onClick={() => navigate('/')}>Exit Race</Button>
       </Modal.Footer>
     </Modal>
   );
