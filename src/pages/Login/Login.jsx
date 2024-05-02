@@ -24,10 +24,11 @@ function Login() {
         ? await registerUser(username, password)
         : await loginUser(username, password);
   
-        if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
-          sessionStorage.setItem('token', apiResponse.data.token);
-          connectSocket(apiResponse.data.token);
-          navigate('/race');
+      if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
+        sessionStorage.setItem('token', apiResponse.data.token); 
+        connectSocket(apiResponse.data.token); 
+        navigate('/race');
+
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
