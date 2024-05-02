@@ -11,8 +11,8 @@ const BettingMode = ({ userId, gameId }) => {
     const [bets, setBets] = useState({});
     const [timeLeft, setTimeLeft] = useState(gameState ? gameState.bettingTimer : 0);
     const [wallet, setWallet] = useState(user ? user.wallet : 0);
+    const [betValue, setBetValue] = useState(''); // Add betValue state
 
-    
     useEffect(() => {
         if (user && user.wallet !== undefined) {
             setWallet(user.wallet);
@@ -23,7 +23,6 @@ const BettingMode = ({ userId, gameId }) => {
         if (gameState && gameState.race && gameState.race.horses) {
             const initialBets = {};
             gameState.race.horses.forEach((horse, index) => {
-              
                 if (!bets[index]) {
                     initialBets[index] = '';  
                 }
@@ -33,7 +32,6 @@ const BettingMode = ({ userId, gameId }) => {
         setTimeLeft(gameState ? gameState.bettingTimer : 0);
     }, [gameState]);
 
-  
     useEffect(() => {
         if (timeLeft > 0) {
             const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
@@ -41,28 +39,16 @@ const BettingMode = ({ userId, gameId }) => {
         }
     }, [timeLeft]);
 
-    // const handleBetChange = (index, value) => {
-    //     if (!isNaN(value) && value >= 0) {  // Allow only non-negative numeric input
-    //         setBets(prev => ({
-    //             ...prev,
-    //             [index]: parseInt(value, 10)  // Convert to integer
-    //         }));
-    //     }
-    // };
-
     const placeBet = async (betValue, index) => {
         const horse = gameState.race.horses[index];
-        const horseIdx = index
-        console.log(user)
-        // const betValue = parseInt(bets[index], 10);
+        const horseIdx = index;
 
         if (betValue > wallet) {
-            console.log(wallet)
             alert("You don't have enough in your wallet to place this bet.");
             return;
         }
 
-        socket.emit('bet', {betValue, horseIdx}, (res) => console.log(res.message) )
+        socket.emit('bet', {betValue, horseIdx}, (res) => console.log(res.message));
     };
 
     if (!gameState || !gameState.race || !gameState.race.horses) {
@@ -72,7 +58,7 @@ const BettingMode = ({ userId, gameId }) => {
     return (
         <>
         <div className={styles.background}>
-            <img src={getImageUrl('betting/Screenshot.png')} alt='background image'></img>
+            <img src={getImageUrl('betting/Screenshot.png')} alt='background image' />
         </div>
         <div className={styles.bettingContainer}>
             <h1 className={styles.bettingHeader}>Place Your Bets</h1>
@@ -88,15 +74,14 @@ const BettingMode = ({ userId, gameId }) => {
                             value={betValue}
                             onChange={(e) => setBetValue(e.target.value) }
                         />
-                        <button className={styles.betButton} onClick={() => placeBet(index)}>Bet</button>
+                        <button className={styles.betButton} onClick={() => placeBet(betValue, index)}>Bet</button>
                     </li>
-                    })}
+                ))}
             </ul>
             <div>Wallet Balance: ${wallet}</div>
         </div>
         </>
     );
 };
-
 
 export default BettingMode;
