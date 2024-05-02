@@ -5,15 +5,19 @@ export const SocketContext = createContext(null);
 
 export function SocketContextProvider({ children }) {
   const [connected, setConnected] = useState(socket.connected);
+  const [connectionError, setConnectionError] = useState(null);
   const [username, setUsername] = useState('');
   const [gameState, setGameState] = useState(null);
   const [betResults, setBetResults] = useState(null);
   const [currentBet, setCurrentBet] = useState(null);
   const [user, setUser] = useState(null);
 
-
   useEffect(() => {
     socket.on('connect', () => setConnected(true));
+    socket.on('connect_error', (err) => {
+        console.log(err)
+        setConnectionError(err)
+    });
     socket.on('username', (name) => setUsername(name));
     socket.on('disconnect', () => {
       setConnected(false);
@@ -28,6 +32,7 @@ export function SocketContextProvider({ children }) {
 
     return () => {
       socket.off('connect');
+      socket.off('connect_error');
       socket.off('username');
       socket.off('disconnect');
       socket.off('gamestate');
@@ -46,6 +51,7 @@ export function SocketContextProvider({ children }) {
     <SocketContext.Provider value={{
       gameState,
       connected,
+      connectionError,
       username,
       currentBet,
       betResults,
