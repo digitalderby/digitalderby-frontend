@@ -74,7 +74,7 @@ const BettingMode = ({ userId, gameId }) => {
                 {gameState.race.horses.map((horse, index) => {
                     const [betValue, setBetValue] = useState(0)
                     return <li key={index}>
-                        <span>{horse.spec.name} - Top Speed: {horse.topSpeed}, Stamina: {horse.stamina}, Acceleration: {horse.acceleration}</span>
+                        <span className='stats'>{horse.spec.name} - Top Speed: {horse.topSpeed}, Stamina: {horse.stamina}, Acceleration: {horse.acceleration}</span>
                         <input
                             type="number"
                             placeholder="Bet amount"
