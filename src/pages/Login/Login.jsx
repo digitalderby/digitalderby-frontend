@@ -25,22 +25,20 @@ function Login() {
         : await loginUser(username, password);
   
       if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
-        sessionStorage.setItem('token', apiResponse.data.token); 
-        connectSocket(apiResponse.data.token); 
+        sessionStorage.setItem('token', apiResponse.data.token);
+        connectSocket(apiResponse.data.token);
 
-        if (apiResponse.data.isAdmin) {
+        
+        if (username === 'admin') {
           navigate('/admin'); 
         } else {
-          navigate('/race');  // Redirect regular users to the race page
+          navigate('/race'); 
         }
-
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
     } catch (err) {
-      const message = err.response?.data?.message || err.message || 'Error during login/register';
-      setError(message);
-      console.error('Error:', err);
+      setError(err.response?.data?.message || err.message || 'Error during login/register');
     }
   }
 
@@ -49,12 +47,10 @@ function Login() {
       <h1 className={styles.title}>{registering ? "Register" : "Login"}</h1>
       <form onSubmit={handleSubmitForm}>
         <div className={styles.email}>
-          <input type='text' name='username' value={username} onChange={(e) => setUsername(e.target.value)}/>
-          <label htmlFor='username'>Username</label>
+          <input type='text' name='username' value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
         </div>
         <div className={styles.password}>
-          <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <label htmlFor='password'>Password</label>
+          <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
         </div>
         {error && <div className={styles.error}>{error}</div>}
         <button className={styles.loginBtn} type='submit'>{registering ? "Submit User" : "Login"}</button>

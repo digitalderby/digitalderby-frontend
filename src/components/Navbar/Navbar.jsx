@@ -14,7 +14,7 @@ function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      <a className={styles.title} href="/">Digitalderby</a>
+      <NavLink to="/" className={styles.title} >Digitalderby</NavLink>
       <div className={styles.wallet}><Wallet /></div>
       <div className={styles.menu}>
         <img 
