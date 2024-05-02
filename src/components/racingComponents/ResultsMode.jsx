@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import styles from './racingComponents.module.css';
 
 const ResultsMode = ({ gameState }) => {
   // useEffect(() => {
