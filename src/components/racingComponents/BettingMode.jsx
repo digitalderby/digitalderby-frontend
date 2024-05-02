@@ -11,7 +11,6 @@ const BettingMode = ({ userId, gameId }) => {
     const [bets, setBets] = useState({});
     const [timeLeft, setTimeLeft] = useState(gameState ? gameState.bettingTimer : 0);
     const [wallet, setWallet] = useState(user ? user.wallet : 0);
-
     
     useEffect(() => {
         if (user && user.wallet !== undefined) {
@@ -41,20 +40,10 @@ const BettingMode = ({ userId, gameId }) => {
         }
     }, [timeLeft]);
 
-    // const handleBetChange = (index, value) => {
-    //     if (!isNaN(value) && value >= 0) {  // Allow only non-negative numeric input
-    //         setBets(prev => ({
-    //             ...prev,
-    //             [index]: parseInt(value, 10)  // Convert to integer
-    //         }));
-    //     }
-    // };
-
     const placeBet = async (betValue, index) => {
         const horse = gameState.race.horses[index];
         const horseIdx = index
         console.log(user)
-        // const betValue = parseInt(bets[index], 10);
 
         if (betValue > wallet) {
             console.log(wallet)
@@ -78,8 +67,9 @@ const BettingMode = ({ userId, gameId }) => {
             <h1 className={styles.bettingHeader}>Place Your Bets</h1>
             <h2>Time left: {Math.max(0, timeLeft / 1000)} seconds</h2>
             <ul className={styles.betList}>
-                {gameState.race.horses.map((horse, index) => (
-                    <li className={styles.betListItem} key={index}>
+                {gameState.race.horses.map((horse, index) => {
+                    const [betValue, setBetValue] = useState(0)
+                    return <li className={styles.betListItem} key={index}>
                         <span className={styles.horseDetails}>{horse.spec.name} - Top Speed: {horse.topSpeed}, Stamina: {horse.stamina}, Acceleration: {horse.acceleration}</span>
                         <input
                             type="number"
@@ -90,7 +80,7 @@ const BettingMode = ({ userId, gameId }) => {
                         />
                         <button className={styles.betButton} onClick={() => placeBet(index)}>Bet</button>
                     </li>
-                    })}
+                })}
             </ul>
             <div>Wallet Balance: ${wallet}</div>
         </div>
