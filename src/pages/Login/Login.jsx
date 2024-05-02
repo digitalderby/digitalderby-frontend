@@ -28,7 +28,7 @@ function Login() {
         sessionStorage.setItem('token', apiResponse.data.token); 
         sessionStorage.setItem('user', JSON.stringify(apiResponse.data.user));
         connectSocket(apiResponse.data.token); 
-        navigate('/');
+        navigate('/race');
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
