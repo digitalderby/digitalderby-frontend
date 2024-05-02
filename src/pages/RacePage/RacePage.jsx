@@ -18,17 +18,25 @@ const RacePage = () => {
         connected
     } = useContext(SocketContext)
 
-    const [betMode, setBetMode] = useState(true);
+    const [betMode, setBetMode] = useState(false);
     // const [resultsMode, setResultsMode] = useState(false)
-    const handleClose = () => setBetMode(false);
-    const handleShow = () => setBetMode(true);
+    const handleCloseBet = () => setBetMode(false);
+    const handleShowBet = () => setBetMode(true);
+
+    const [resultsMode, setResultsMode] = useState(false)
+    const handleCloseRes = () => setResultsMode(false)
+    const handleShowRes = () => setResultsMode(true)
+    function switchToBetMode () {
+        handleCloseRes()
+        handleShowBet()
+    }
 
     switch (gameState?.status) {
-        case "betting": !betMode && handleShow()
+        case "betting": !betMode ? switchToBetMode() : null 
             break;
-        case "race": betMode && handleClose()
+        case "race": betMode && handleCloseBet()
             break;
-        case "results": console.log('results mode')
+        case "results": !resultsMode && handleShowRes()
             break;
         default : null
             break;
@@ -37,8 +45,9 @@ const RacePage = () => {
     return (
         <>
             <RaceMode gameState={gameState}/>
-            <BettingMode gameState={gameState} show={betMode} handleClose={handleClose} user={user}/>
-            <Button variant="primary" onClick={handleShow}>
+            <BettingMode gameState={gameState} show={betMode} handleClose={handleCloseBet} user={user}/>
+            <ResultsMode gameState={gameState} show={resultsMode} handleClose={handleCloseRes}/>
+            <Button variant="primary" onClick={handleShowBet}>
                 Launch Betting Modal
             </Button>
         </>

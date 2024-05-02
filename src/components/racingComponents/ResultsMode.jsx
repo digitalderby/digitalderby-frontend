@@ -1,12 +1,17 @@
-import { useEffect } from 'react';
-import styles from './racingComponents.module.css';
+import { useEffect } from "react";
+import { Modal, Button } from "react-bootstrap";
+import styles from "./racingComponents.module.css";
 
-const ResultsMode = ({ gameState }) => {
+const ResultsMode = ({ gameState, show, handleClose }) => {
   // useEffect(() => {
   //   console.log('Current gameState in ResultsMode:', gameState);
   // }, [gameState]);
 
-  if (!gameState || !gameState.raceStates || !gameState.raceStates.horseStates) {
+  if (
+    !gameState ||
+    !gameState.raceStates ||
+    !gameState.raceStates.horseStates
+  ) {
     return <div>Loading results...</div>;
   }
 
@@ -14,37 +19,51 @@ const ResultsMode = ({ gameState }) => {
   const { horseStates, rankings } = gameState.raceStates;
 
   // Sort horses based on rankings to display in order
-  const sortedHorses = rankings.map(index => horseStates[index]);
+  const sortedHorses = rankings.map((index) => horseStates[index]);
 
   // Identify the winner (first in the rankings array)
   const winner = sortedHorses[0];
 
   return (
-    <div className="results-container">
-      <div>
-        <h1>Race Results</h1>
-        {winner ? (
-          <div className="winner">
-            <h2>🏆 {winner.horse.name}</h2>
-            <p>Details:</p>
-            <ul>
-              <li>Finish Time: {winner.finishTime / 1000} s</li>
-              <li>Current Speed: {winner.currentSpeed}</li>
-            </ul>
-          </div>
-        ) : (
-          <p>No results available.</p>
-        )}
-        <h3>All Participants:</h3>
-        <ol>
-          {sortedHorses.map((horse, index) => (
-            <li key={index}>
-              {horse.horse.name} - Finished with a time of {horse.finishTime}ms, Final speed: {horse.currentSpeed}
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Place Your Bets!</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div>
+          <h1>Race Results</h1>
+          {winner ? (
+            <div className="winner">
+              <h2>🏆 {winner.horse.name}</h2>
+              <p>Details:</p>
+              <ul>
+                <li>Finish Time: {winner.finishTime / 1000} s</li>
+                <li>Current Speed: {winner.currentSpeed}</li>
+              </ul>
+            </div>
+          ) : (
+            <p>No results available.</p>
+          )}
+          <h3>All Participants:</h3>
+          <ol>
+            {sortedHorses.map((horse, index) => (
+              <li key={index}>
+                {horse.horse.name} - Finished with a time of {horse.finishTime}
+                ms, Final speed: {horse.currentSpeed}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleClose}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
