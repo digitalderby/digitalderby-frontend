@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { startServer, startMainLoop, endServer, getAllUsers, deleteUser } from '../../services/apiService';
-import Sidebar from './Sidebar'; // Assuming this is the correct path
+import Sidebar from './Sidebar'; 
 import styles from './Main.module.css';
 
 const Main = () => {
