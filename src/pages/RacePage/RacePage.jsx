@@ -30,7 +30,7 @@ const RacePage = () => {
   const [resultsMode, setResultsMode] = useState(initialState);
   const userCloseRes = () => setResultsMode({ open: false, userClosed: true });
   const handleShowRes = () => setResultsMode(openState);
-  const autoCloseRes = () => setBetMode(initialState);
+  const autoCloseRes = () => setResultsMode(initialState);
 
   function switchToBetMode() {
     autoCloseRes();
@@ -42,10 +42,10 @@ const RacePage = () => {
         !betMode.open && !betMode.userClosed && switchToBetMode();
         break;
       case "race":
-        betMode.open && autoCloseBet();
+          betMode.open && autoCloseBet();
         break;
       case "results":
-        !resultsMode.userClosed && !resultsMode.open && handleShowRes();
+        !resultsMode.userClosed && handleShowRes();
         break;
       default:
         null;
@@ -68,16 +68,15 @@ const RacePage = () => {
         handleClose={userCloseRes}
       />
       {gameState?.status === "betting" || gameState?.status === "results" ? (
-        <Button
+        gameState?.status === "betting"
+        ? <Button
           id="openModals"
-          onClick={betMode.open ? handleShowBet : handleShowRes}
-        >
-          {gameState?.status === "betting"
-          ? "Place a Bet" 
-          : gameState?.status === "results"
-            ? "See Results"
-            : null}
-        </Button>
+          onClick={handleShowBet}
+        >Place a Bet</Button>
+        : <Button
+        id="openModals"
+        onClick={handleShowRes}
+      >See Results</Button>
       ) : null}
     </>
   );
