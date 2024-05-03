@@ -64,6 +64,7 @@ export const endServer = async () => {
 }
 
 
+
 // POST
 export const registerUser = async (username, password) => {
     return await api.post('/auth/signup', {username, password})
@@ -72,6 +73,20 @@ export const registerUser = async (username, password) => {
 export const loginUser = async (username, password) => {
     return await api.post('/auth/login', {username, password})
 }
+
+export const getAllUsers = async () => {
+    try {
+        const response = await api.get('/users');
+        if (response.status !== 200) {
+            throw new Error('Failed to fetch users');
+        }
+        return response.data; 
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        throw error;
+    }
+};
+
 
 //TODO: Logout user function
 

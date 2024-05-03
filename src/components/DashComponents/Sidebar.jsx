@@ -1,24 +1,20 @@
-
 import styles from './Sidebar.module.css'; 
-const Sidebar = ({ onSelectPage }) => {
-  const handlePageChange = (page) => {
-    onSelectPage(page);
-  };
 
+const Sidebar = ({ onSelectPage }) => {
   return (
     <div className={styles.sidebar}> 
       <ul>
         <li>
-          <button onClick={() => handlePageChange('dashboard')}>Dashboard</button>
+          <button onClick={() => onSelectPage('dashboard')}>Dashboard</button>
         </li>
         <li>
-          <button onClick={() => handlePageChange('users')}>User Management</button>
+          <button onClick={() => onSelectPage('users')}>User Management</button>
         </li>
         <li>
-          <button onClick={() => handlePageChange('settings')}>Settings</button>
+          <button onClick={() => onSelectPage('settings')}>Settings</button>
         </li>
         <li>
-          <button onClick={() => handlePageChange('analytics')}>Analytics</button>
+          <button onClick={() => onSelectPage('analytics')}>Analytics</button>
         </li>
       </ul>
     </div>

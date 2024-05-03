@@ -4,6 +4,7 @@
   display: block;
   position: fixed;
   left: 0;
+  top: 8%;
   align-items: flex-start;
   justify-content: left;
   width: 250px; /* Fixed width */
@@ -29,7 +30,7 @@
 .sidebar button {
   background: none;
   border: none;
-  color: var(--color-text); /* Dark color for text */
+  color: var(--color-text); 
   text-align: left;
   width: 100%;
   padding: 10px;
