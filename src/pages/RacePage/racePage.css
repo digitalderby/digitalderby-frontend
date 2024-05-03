@@ -26,6 +26,12 @@
     font-size: 2.5em;
 }
 
+#openModals {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+}
+
 @keyframes slide {
     0% {
       transform: translate3d(0, 0, 0);

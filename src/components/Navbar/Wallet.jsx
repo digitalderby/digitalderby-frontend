@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { SocketContext } from '../../contexts/SocketContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
 import { faWallet } from '@fortawesome/free-solid-svg-icons';  
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Wallet = () => {
   const { clientStatus } = useContext(SocketContext);
