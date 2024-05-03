@@ -4,15 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';  
 
 const Wallet = () => {
-  const { user } = useContext(SocketContext);
+  const { clientStatus } = useContext(SocketContext);
 
-  if (!user || !user.wallet) {
+  if (!clientStatus || !clientStatus.wallet) {
     return <div>Wallet data not available.</div>;
   }
 
   return (
     <div className="wallet-container">
-      <p><FontAwesomeIcon icon={faWallet} /> My Wallet: USD${user.wallet}</p>
+      <p><FontAwesomeIcon icon={faWallet} /> My Wallet: USD${clientStatus.wallet}</p>
     </div>
   );
 };
