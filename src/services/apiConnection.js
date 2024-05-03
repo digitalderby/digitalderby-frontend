@@ -5,7 +5,8 @@ export const api = axios.create({
 })
 
 api.interceptors.request.use(config => {
-    const token = sessionStorage.getItem(import.meta.env.VITE_SESSION_KEY)
+    const token = sessionStorage.getItem('token')
+    console.log(token);
     config.headers.Authorization = token
     return config
 })

@@ -18,6 +18,37 @@ export const getAllHorses = async () => {
     }
 }
 
+export const startServer = async () => {
+    try {
+        const response = await api.post('/admin/startRaceServer');
+        if (response.status === 200) {
+            console.log("Server started successfully:", response.data.message);
+            return response.data;
+        } else {
+            throw new Error('Server did not start successfully.');
+        }
+    } catch (error) {
+        console.error("Error starting the server:", error);
+        throw error; 
+    }
+}
+
+export const startMainLoop = async () => {
+    try {
+        const response = await api.post('/admin/startRaceLoop');
+        if (response.status === 200) {
+            console.log("Main loop started successfully:", response.data.message);
+            return response.data;
+        } else {
+            throw new Error('Main loop did not start successfully.');
+        }
+    } catch (error) {
+        console.error("Error starting the main loop:", error);
+        throw error; 
+    }
+}
+
+
 // POST
 export const registerUser = async (username, password) => {
     return await api.post('/auth/signup', {username, password})
