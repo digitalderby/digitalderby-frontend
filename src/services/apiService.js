@@ -33,6 +33,17 @@ export const startServer = async () => {
     }
 }
 
+export const getServerStatus = async () => {
+    try {
+        const response = await api.get('/admin/serverStatus')
+        console.log(response);
+        return response.dats;    
+    } catch (error) {
+        console.error('Failed to fetch Server status:', error);
+        throw error;
+    }
+}
+
 export const startMainLoop = async () => {
     try {
         const response = await api.post('/admin/startRaceLoop');

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import styles from './Navbar.module.css';
 import { getImageUrl } from '../../utils';
@@ -50,11 +50,6 @@ return (
     </div>
   </nav>
 );
-
-        </ul>
-      </div>
-    </nav>
-  );
 }
 
 export default Navbar;
