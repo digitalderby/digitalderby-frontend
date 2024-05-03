@@ -26,8 +26,8 @@ function Login() {
     try {
       const apiResponse = registering
 
-        ? await registerUser(username, password)
-        : await loginUser(username, password);
+        ? await register(username, password)
+        : await login(username, password);
   
       if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
         sessionStorage.setItem('token', apiResponse.data.token);

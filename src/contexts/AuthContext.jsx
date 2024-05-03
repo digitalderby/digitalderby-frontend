@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { removeToken } from '../services/tokenService';
+import { removeToken, setToken } from '../services/tokenService';
 import { loginUser, registerUser } from '../services/apiService';
 
 export const AuthContext = createContext(null);
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await loginUser(username, password);
       if (response.status === 200) {
-        sessionStorage.setItem('token', response.data.token); 
+        setToken(response.data.token) 
         setUser(response.data);
         console.log(response.data)
         setError(null);  // Clear error on successful login
@@ -45,6 +45,10 @@ export const AuthProvider = ({ children }) => {
       console.error('Registration failed:', error);
     }
   };
+
+  const isLoggedIn = () => {
+    
+  }
 
   const logout = () => {
     setUser(null);
