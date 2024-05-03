@@ -1,21 +1,7 @@
-import { Button, Modal } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import styles from './racingComponents.module.css'
 
 const RaceMode = ({ gameState }) => {
-  // useEffect(() => {
-  //   console.log(gameState)
-  // }, [gameState])
-  let prettifiedGameState = gameState;
-  let timeLeft = 5
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   return (
     <>
-      <h2>RaceMode</h2>
       <div className="h-full w-full flex justify-center items-center">
         <div id="raceScrollContainer">
           <div

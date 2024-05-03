@@ -10,6 +10,7 @@ import HorseDetailPage from "./pages/HorseDetailPage/HorseDetailPage.jsx";
 import TestPage from "./pages/TestPage/TestPage.jsx";
 import RacePage from "./pages/RacePage/RacePage.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProtectedRoute from "./components/Auth/ProtectedComponent.jsx";
 
 function App() {
   return (
@@ -18,10 +19,15 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Hero />} />
-          <Route path="/race" element={<RacePage />}/>
+          <Route 
+            path="/race" 
+            element={
+            <ProtectedRoute>
+              <RacePage />
+            </ProtectedRoute>
+          } />
           <Route path="/user" element={<UserProfile />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/horses" element={<HorseListPage />} />
           <Route path="/horses/:id" element={<HorseDetailPage />} />
           <Route path="/test" element={<TestPage />} />

@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         sessionStorage.setItem('token', response.data.token); 
         setUser(response.data);
+        console.log(response.data)
         setError(null);  // Clear error on successful login
         console.log('Login successful:', response);
         return response

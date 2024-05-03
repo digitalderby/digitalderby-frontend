@@ -57,7 +57,12 @@ const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => 
   };
 
   if (!gameState || !gameState.race || !gameState.race.horses) {
-    return <div>Loading betting information...</div>;
+    return null;
+  }
+
+  const closeGame = () => {
+    socket.close()
+    navigate('/')
   }
 
   return (
@@ -73,10 +78,7 @@ const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => 
         <div>Wallet Balance: ${wallet}</div>
       </Modal.Body>
       <Modal.Footer>
-            <Button onClick={() => {
-              socket.close()
-              navigate('/')
-            }}>Exit Race</Button>
+            <Button onClick={closeGame}>Exit Race</Button>
       </Modal.Footer>
     </Modal>
   );
