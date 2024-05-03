@@ -85,7 +85,7 @@ const BettingMode = ({ show, handleClose, }) => {
         <div>Wallet Balance: ${clientStatus.wallet} ({currentWallet})</div>
       </Modal.Body>
       <Modal.Footer>
-            <Button onClick={closeGame}>Exit Race</Button>
+            <Button onClick={handleClose} variant="secondary">Close</Button>
       </Modal.Footer>
     </Modal>
   );
