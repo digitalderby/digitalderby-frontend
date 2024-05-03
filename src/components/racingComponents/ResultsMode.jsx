@@ -47,11 +47,10 @@ const ResultsMode = ({ show, handleClose }) => {
             <h1>Race Results</h1>
             {winner ? (
               <div className="winner">
-                <h2>🏆 {winner.horse.name}</h2>
+                <h2>🏆 {winner.horseInfo.name}</h2>
                 <p>Details:</p>
                 <ul>
                   <li>Finish Time: {winner.finishTime / 1000} s</li>
-                  <li>Current Speed: {winner.currentSpeed}</li>
                 </ul>
               </div>
             ) : (
@@ -59,13 +58,19 @@ const ResultsMode = ({ show, handleClose }) => {
             )}
             <h3>All Participants:</h3>
             <ol>
-              {sortedHorses.map((horse, index) => (
-                <li key={index}>
-                  {horse.horse.name} - Finished with a time of{" "}
-                  {horse.finishTime}
-                  ms, Final speed: {horse.currentSpeed}
-                </li>
-              ))}
+              {sortedHorses.map((horse, index) => {
+                const finishTime = finishTimes[horse.index]
+                const minutes = Math.floor(finishTime/(60*1000))
+                const seconds = Math.floor((finishTime - minutes*60*1000)/1000)
+                const ms = finishTime-seconds
+
+                return (
+                  <li key={index}>
+                    {horse.horseInfo.name} - Finished with a time of{" "}
+                    {minutes}:{seconds}:{ms}
+                  </li>
+                )
+              })}
             </ol>
           </div>
         )}
