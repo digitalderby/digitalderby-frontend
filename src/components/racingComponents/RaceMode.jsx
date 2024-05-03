@@ -11,6 +11,8 @@ const RaceMode = () => {
     raceInfo
 } = useContext(SocketContext)
 
+  console.log(gameState)
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -31,6 +33,7 @@ const RaceMode = () => {
             }
           ></div>
           {gameState?.raceState?.horseStates?.map((horse, idx) => {
+            console.log(gameState)
             return (
               <div
                 key={idx}
@@ -40,7 +43,7 @@ const RaceMode = () => {
                 }}
                 className="horseInRace"
               >
-                {raceInfo?.race.horses[idx].horseIcons[idx]}
+                {raceInfo?.race.horses[idx].icons[0]}
               </div>
             );
           })}

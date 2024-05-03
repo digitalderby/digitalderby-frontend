@@ -13,25 +13,35 @@ const BettingMode = ({ show, handleClose, }) => {
   const {
     gameState,
     raceInfo,
-    clientInfo,
+    clientStatus,
   } = useContext(SocketContext)
 
   const [timer, setEndTime] = useCountdown(gameState?.raceStartTime || Date.now())
   const navigate = useNavigate();
-  const [bets, setBets] = useState({});
+  const [betValues, setBetValues] = useState(
+    Array(raceInfo?.race.horses.length || 4).fill(0)
+  )
 
-  let currentWallet = clientInfo.wallet
-  if (clientInfo.bet !== null) {
-    currentWallet -= clientInfo.bet.betValue
+  if (clientStatus === null) { return }
+
+  const currentBet = clientStatus.bet
+
+  let currentWallet = clientStatus.wallet
+  if (currentBet !== null) {
+    currentWallet -= clientStatus.bet.betValue
   }
 
   const placeBet = async (betValue, index) => {
+    setBetValues(Array.raceInfo?.race.horses.length || 4).fill(0)
     const horseIdx = index;
 
-    if (betValue > clientInfo.wallet) {
-      console.log(clientInfo.wallet);
+    if (betValue > clientStatus.wallet) {
+      console.log(clientStatus.wallet);
       alert("You don't have enough in your wallet to place this bet.");
       return;
+    } else if (betValue < raceInfo?.minimumBet) {
+      alert(`Bet must be at least ${raceInfo?.minimumBet}.`)
+      return
     }
 
     socket.emit("bet", { betValue, horseIdx }, (res) =>
@@ -39,7 +49,7 @@ const BettingMode = ({ show, handleClose, }) => {
     );
   };
 
-  if (!gameState || !gameState.race || !gameState.race.horses) {
+  if (!gameState || !raceInfo.race || !raceInfo.race.horses) {
     return <div>Loading betting information...</div>;
   }
 
@@ -49,11 +59,20 @@ const BettingMode = ({ show, handleClose, }) => {
         <Modal.Title>Place Your Bets!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2>Time left: {Math.max(0, 0/ 1000)} seconds</h2>
+        <h2>Time left: {timer.currentTime} seconds</h2>
         <ul className={styles.betList}>
-          {gameState.raceInfo.race.horses.map((horse, index) => <HorsesForBetting horse={horse} index={index} placeBet={placeBet} key={index}/>)}
+          {raceInfo.race.horses.map((horse, index) =>
+            <HorsesForBetting
+              betValue={betValues[index]}
+              setBetValue={setBetValues}
+              key={index}
+              horse={horse}
+              index={index}
+              placeBet={placeBet}
+            />
+          )}
         </ul>
-        <div>Wallet Balance: ${clientInfo.wallet}</div>
+        <div>Wallet Balance: ${clientStatus.wallet} ({currentWallet})</div>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => navigate('/')}>Exit Race</Button>

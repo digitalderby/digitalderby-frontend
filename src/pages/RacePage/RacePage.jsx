@@ -9,11 +9,9 @@ const RacePage = () => {
     const {
         gameState,
         raceInfo,
-        user,
     } = useContext(SocketContext)
 
     const [betMode, setBetMode] = useState(false);
-    // const [resultsMode, setResultsMode] = useState(false)
     const handleCloseBet = () => setBetMode(false);
     const handleShowBet = () => setBetMode(true);
 

@@ -1,22 +1,21 @@
 import React from 'react'
 import styles from "./racingComponents.module.css";
-import { useState } from "react";
 
-const HorsesForBetting = ({horse, index, placeBet}) => {
-    const [betValue, setBetValue] = useState(0);
-
+const HorsesForBetting = ({betValue, setBetValues, horse, index, placeBet}) => {
     return (
       <li className={styles.betListItem} key={index}>
         <span className={styles.horseDetails}>
-          {horse.name} - Top Speed: {horse.topSpeed}, Stamina:{" "}
-          {horse.stamina}, Acceleration: {horse.acceleration}
+          {horse.name} - Top Speed: {horse.stats.topSpeed}, Stamina:{" "}
+          {horse.stats.stamina}, Acceleration: {horse.stats.acceleration}
         </span>
         <input
           type="number"
           className={styles.betInput}
           placeholder="Bet amount"
           value={betValue}
-          onChange={(e) => setBetValue(e.target.value)}
+          onChange={(e) => setBetValues((prev) => {
+            prev.splice(1, 1, e.target.value)
+          })}
         />
         <button className={styles.betButton} onClick={() => placeBet(betValue, index)}>
           Bet
