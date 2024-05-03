@@ -15,7 +15,7 @@ const BettingMode = ({ show, handleClose, }) => {
     clientStatus,
   } = useContext(SocketContext)
 
-  const [timer] = useCountdown(gameState?.raceStartTime || Date.now())
+  const timer = useCountdown(new Date(gameState?.raceStartTime || Date.now()))
   const navigate = useNavigate();
   const [betValues, setBetValues] = useState(
     Array(raceInfo?.race.horses.length || 4).fill(0)
