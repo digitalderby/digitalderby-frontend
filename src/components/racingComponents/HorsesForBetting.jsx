@@ -8,7 +8,7 @@ const HorsesForBetting = ({horse, index, placeBet}) => {
     return (
       <li className={styles.betListItem} key={index}>
         <span className={styles.horseDetails}>
-          {horse.spec.name} - Top Speed: {horse.topSpeed}, Stamina:{" "}
+          {horse.name} - Top Speed: {horse.topSpeed}, Stamina:{" "}
           {horse.stamina}, Acceleration: {horse.acceleration}
         </span>
         <input

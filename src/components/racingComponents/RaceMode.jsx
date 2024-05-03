@@ -1,18 +1,21 @@
 import { Button, Modal } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from './racingComponents.module.css'
+import { SocketContext } from "../../contexts/SocketContext";
 
-const RaceMode = ({ gameState }) => {
-  // useEffect(() => {
-  //   console.log(gameState)
-  // }, [gameState])
-  let prettifiedGameState = gameState;
-  let timeLeft = 5
-
+const RaceMode = () => {
   const [show, setShow] = useState(false);
+
+  const {
+    gameState,
+    raceInfo
+} = useContext(SocketContext)
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  
+
   return (
     <>
       <h2>RaceMode</h2>
@@ -21,13 +24,13 @@ const RaceMode = ({ gameState }) => {
           <div
             id="raceBackground"
             style={
-              gameState?.raceStates?.time > 0 &&
-              !gameState?.raceStates?.horseStates.some((el) => el.finishTime)
+              gameState?.raceState?.time > 0 &&
+              !gameState?.raceState?.horseState.some((el) => el.finishTime)
                 ? { animation: "slide 30s linear infinite" }
                 : null
             }
           ></div>
-          {gameState?.raceStates?.horseStates?.map((horse, idx) => {
+          {gameState?.raceState?.horseStates?.map((horse, idx) => {
             return (
               <div
                 key={idx}
@@ -37,7 +40,7 @@ const RaceMode = ({ gameState }) => {
                 }}
                 className="horseInRace"
               >
-                {horse.horse.spec.icons[0]}
+                {raceInfo?.race.horses[idx].horseIcons[idx]}
               </div>
             );
           })}

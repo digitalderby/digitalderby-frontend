@@ -37,12 +37,13 @@ export function SocketContextProvider({ children }) {
     return () => {
       socket.off('connect');
       socket.off('connect_error');
-      socket.off('username');
       socket.off('disconnect');
-      socket.off('gamestate');
-      socket.off('currentBet');
+
+      socket.off('gameStatev2');
       socket.off('betResults');
       socket.off('clientStatus');
+      socket.off('poolValue');
+      socket.off('raceInfo');
     };
   }, []);
 

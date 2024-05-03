@@ -4,9 +4,10 @@ import { useState } from "react";
 const POLLING_FREQUENCY = 10
 const PRECISION = 2
 
-export default function useCountdown(endTime) {
+export default function useCountdown(time) {
   const [currentTime, setCurrentTime] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [endTime, setEndTime] = useState(time)
 
   useEffect(() => {
     function onTick() {
@@ -19,5 +20,5 @@ export default function useCountdown(endTime) {
     return () => { window.clearInterval(interval) }
   }, [endTime])
 
-  return { currentTime, finished }
+  return [{ currentTime, finished }, setEndTime]
 }

@@ -1,21 +1,15 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import "./racePage.css"
 import { SocketContext } from '../../contexts/SocketContext';
 import BettingMode from '../../components/racingComponents/BettingMode';
 import RaceMode from '../../components/racingComponents/RaceMode';
 import ResultsMode from '../../components/racingComponents/ResultsMode';
-import { Button } from 'react-bootstrap';
 
 const RacePage = () => {
-    //Pull in game state
     const {
         gameState,
-        sendConnect,
-        username,
-        currentBet,
-        betResults,
+        raceInfo,
         user,
-        connected
     } = useContext(SocketContext)
 
     const [betMode, setBetMode] = useState(false);
@@ -44,9 +38,9 @@ const RacePage = () => {
 
     return (
         <>
-            <RaceMode gameState={gameState}/>
-            <BettingMode gameState={gameState} show={betMode} handleClose={handleCloseBet} user={user}/>
-            <ResultsMode gameState={gameState} show={resultsMode} handleClose={handleCloseRes}/>
+            <RaceMode />
+            <BettingMode show={betMode} handleClose={handleCloseBet}/>
+            <ResultsMode show={resultsMode} handleClose={handleCloseRes}/>
 
         </>
     )
