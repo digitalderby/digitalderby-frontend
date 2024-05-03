@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import { SocketContext } from '../../contexts/SocketContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
 import { faWallet } from '@fortawesome/free-solid-svg-icons';  
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Wallet = () => {
   const { user } = useContext(SocketContext);
+  const { isLoggedIn } = useContext(AuthContext)
 
-  if (!user || !user.wallet) {
+  if (!isLoggedIn) {
+    return null
+  } else if (!user || !user.wallet) {
     return <div>Wallet data not available.</div>;
   }
 

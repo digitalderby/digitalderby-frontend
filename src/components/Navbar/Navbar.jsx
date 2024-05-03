@@ -13,7 +13,7 @@ import { SocketContext } from '../../contexts/SocketContext';
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { user, logout } = useContext(AuthContext)
+  const { isLoggedIn, logout } = useContext(AuthContext)
   const { disconnectSocket } = useContext(SocketContext)
 
   const handleLinkClick = () => {
@@ -40,10 +40,10 @@ function Navbar() {
           <NavLink to="/race" onClick={handleLinkClick}>Next Race</NavLink>
           <NavLink to="/horses" onClick={handleLinkClick}>Horse Stats</NavLink>
           {
-            user && <NavLink to="/user" onClick={handleLinkClick}>User</NavLink>
+            isLoggedIn && <NavLink to="/user" onClick={handleLinkClick}>User</NavLink>
           }
           {
-            user
+            isLoggedIn
             ? <NavLink to="/" onClick={logoutAndDisconnect}>Logout</NavLink>
             : <NavLink to="/login" onClick={handleLinkClick}>Login</NavLink>
 
