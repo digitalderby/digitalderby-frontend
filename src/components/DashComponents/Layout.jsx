@@ -5,7 +5,7 @@ import Main from './Main';
 const Layout = ({ children }) => {
   return (
     <div className="layout">
-      <Header />
+      {/* <Header /> */}
       <div className="content-container">
         <Sidebar />
         <Main>{children}</Main>

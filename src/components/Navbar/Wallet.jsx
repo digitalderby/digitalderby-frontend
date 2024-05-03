@@ -12,7 +12,7 @@ const Wallet = () => {
 
   return (
     <div className="wallet-container">
-      <p><FontAwesomeIcon icon={faWallet} /> My Wallet ${user.wallet}</p>
+      <p><FontAwesomeIcon icon={faWallet} /> My Wallet: USD${user.wallet}</p>
     </div>
   );
 };

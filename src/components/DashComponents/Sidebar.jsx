@@ -13,9 +13,6 @@ const Sidebar = ({ onSelectPage }) => {
         <li>
           <button onClick={() => onSelectPage('settings')}>Settings</button>
         </li>
-        <li>
-          <button onClick={() => onSelectPage('analytics')}>Analytics</button>
-        </li>
       </ul>
     </div>
   );
