@@ -6,11 +6,12 @@ export const SocketContext = createContext(null);
 export function SocketContextProvider({ children }) {
   const [connected, setConnected] = useState(socket.connected);
   const [connectionError, setConnectionError] = useState(null);
-  const [username, setUsername] = useState('');
+
+  const [raceInfo, setRaceInfo] = useState(null);
+  const [clientStatus, setClientStatus] = useState(null);
   const [gameState, setGameState] = useState(null);
   const [betResults, setBetResults] = useState(null);
-  const [currentBet, setCurrentBet] = useState(null);
-  const [user, setUser] = useState(null);
+  const [poolValue, setPoolValue] = useState(null);
 
   useEffect(() => {
     socket.on('connect', () => setConnected(true));
@@ -18,17 +19,20 @@ export function SocketContextProvider({ children }) {
         console.log(err)
         setConnectionError(err)
     });
-    socket.on('username', (name) => setUsername(name));
     socket.on('disconnect', () => {
       setConnected(false);
+
       setBetResults(null);
-      setCurrentBet(null);
       setGameState(null);
+      setClientStatus(null);
+      setPoolValue(null);
     });
-    socket.on('gamestate', setGameState);
-    socket.on('currentBet', setCurrentBet);
+
+    socket.on('gameStatev2', setGameState);
     socket.on('betResults', setBetResults);
-    socket.on('clientStatus', setUser);
+    socket.on('clientStatus', setClientStatus);
+    socket.on('poolValue', setPoolValue);
+    socket.on('raceInfo', setRaceInfo);
 
     return () => {
       socket.off('connect');
@@ -49,13 +53,15 @@ export function SocketContextProvider({ children }) {
 
   return (
     <SocketContext.Provider value={{
-      gameState,
       connected,
       connectionError,
-      username,
-      currentBet,
+
+      raceInfo,
+      clientStatus,
+      gameState,
       betResults,
-      user,
+      poolValue,
+
       connectSocket, // Expose connectSocket function
     }}>
       {children}
