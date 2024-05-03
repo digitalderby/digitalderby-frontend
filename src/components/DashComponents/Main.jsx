@@ -19,7 +19,7 @@ const Main = () => {
   const fetchUsers = async () => {
     try {
       const userList = await getAllUsers();
-      setUsers(userList);
+      setUsers(userList); 
     } catch (error) {
       setError(error.message);
     }

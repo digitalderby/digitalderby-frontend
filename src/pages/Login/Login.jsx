@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useState, useContext } from 'react';
-import { loginUser, registerUser } from '../../services/apiService';
 import { useAuth } from '../../contexts/AuthContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import { SocketContext } from '../../contexts/SocketContext';

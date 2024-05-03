@@ -1,11 +1,25 @@
 import { api } from "./apiConnection";
 import axios from "axios";
 
+
+
 // GET
 // TODO: update route address
-export const getProfileData = async (payload) => {
-    return await api.post('/users/', payload)
+export const getProfileData = async (username) => {
+    try {
+        if (!username) {
+            throw new Error("Username is required to fetch profile data.");
+        }
+        const response = await api.get(`/users/${username}`);
+        return response.data;  // Return the data directly for ease of use
+    } catch (error) {
+        console.error("Failed to fetch profile data:", error);
+        // Depending on your error handling strategy, you might want to re-throw the error or handle it differently
+        throw error;  
+    }
 }
+
+
 
 export const getAllHorses = async () => {
     try {
