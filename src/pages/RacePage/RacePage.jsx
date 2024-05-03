@@ -1,47 +1,86 @@
-import { useContext, useState } from 'react'
-import { SocketContext } from '../../contexts/SocketContext';
-import BettingMode from '../../components/racingComponents/BettingMode';
-import RaceMode from '../../components/racingComponents/RaceMode';
-import ResultsMode from '../../components/racingComponents/ResultsMode';
-import "./racePage.css"
+import { useContext, useEffect, useState } from "react";
+import { SocketContext } from "../../contexts/SocketContext";
+import BettingMode from "../../components/racingComponents/BettingMode";
+import RaceMode from "../../components/racingComponents/RaceMode";
+import ResultsMode from "../../components/racingComponents/ResultsMode";
+import "./racePage.css";
+import { Button } from "react-bootstrap";
 
 const RacePage = () => {
-    const {
-        gameState,
-        raceInfo,
-    } = useContext(SocketContext)
+  //Pull in game state
+  const {
+    gameState,
+    raceInfo,
+    sendConnect,
+    username,
+    currentBet,
+    betResults,
+    user,
+    connected,
+  } = useContext(SocketContext);
+  //if betMode is true, BetModal is displayed
+  const initialState = { open: false, userClosed: false };
+  const openState = { open: true, userClosed: false };
 
-    const [betMode, setBetMode] = useState(false);
-    const handleCloseBet = () => setBetMode(false);
-    const handleShowBet = () => setBetMode(true);
+  const [betMode, setBetMode] = useState(initialState);
+  const userCloseBet = () => setBetMode({ open: false, userClosed: true });
+  const handleShowBet = () => setBetMode(openState);
+  const autoCloseBet = () => setBetMode(initialState);
 
-    const [resultsMode, setResultsMode] = useState(false)
-    const handleCloseRes = () => setResultsMode(false)
-    const handleShowRes = () => setResultsMode(true)
-    function switchToBetMode () {
-        handleCloseRes()
-        handleShowBet()
-    }
+  //if resultsMode is true, ResultsModal is displayed
+  const [resultsMode, setResultsMode] = useState(initialState);
+  const userCloseRes = () => setResultsMode({ open: false, userClosed: true });
+  const handleShowRes = () => setResultsMode(openState);
+  const autoCloseRes = () => setResultsMode(initialState);
 
+  function switchToBetMode() {
+    autoCloseRes();
+    handleShowBet();
+  }
+  useEffect(() => {
     switch (gameState?.status) {
-        case "betting": !betMode ? switchToBetMode() : null 
-            break;
-        case "race": betMode && handleCloseBet()
-            break;
-        case "results": !resultsMode && handleShowRes()
-            break;
-        default : null
-            break;
+      case "betting":
+        !betMode.open && !betMode.userClosed && switchToBetMode();
+        break;
+      case "race":
+          betMode.open && autoCloseBet();
+        break;
+      case "results":
+        !resultsMode.userClosed && handleShowRes();
+        break;
+      default:
+        null;
+        break;
     }
+  }, [gameState]);
 
-    return (
-        <>
-            <RaceMode />
-            <BettingMode show={betMode} handleClose={handleCloseBet}/>
-            <ResultsMode show={resultsMode} handleClose={handleCloseRes}/>
+  return (
+    <>
+      <RaceMode gameState={gameState} />
+      <BettingMode
+        gameState={gameState}
+        show={betMode.open}
+        handleClose={userCloseBet}
+        user={user}
+      />
+      <ResultsMode
+        gameState={gameState}
+        show={resultsMode.open}
+        handleClose={userCloseRes}
+      />
+      {gameState?.status === "betting" || gameState?.status === "results" ? (
+        gameState?.status === "betting"
+        ? <Button
+          id="openModals"
+          onClick={handleShowBet}
+        >Place a Bet</Button>
+        : <Button
+        id="openModals"
+        onClick={handleShowRes}
+      >See Results</Button>
+      ) : null}
+    </>
+  );
+};
 
-        </>
-    )
-}
-
-export default RacePage
+export default RacePage;

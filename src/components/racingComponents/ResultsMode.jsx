@@ -35,7 +35,7 @@ const ResultsMode = ({ show, handleClose }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} centered backdrop="static">
+    <Modal show={show} onHide={handleClose} centered>
       <Modal.Header>
         <Modal.Title>Results</Modal.Title>
       </Modal.Header>
@@ -76,7 +76,7 @@ const ResultsMode = ({ show, handleClose }) => {
         )}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={closeGame}>Exit Race</Button>
+        <Button onClick={handleClose} variant="secondary">Close</Button>
       </Modal.Footer>
     </Modal>
   );
