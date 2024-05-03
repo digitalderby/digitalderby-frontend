@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { startServer, startMainLoop, endServer, getAllUsers, deleteUser } from '../../services/apiService';
+import {  startMainLoop, endServer, getAllUsers, deleteUser } from '../../services/apiService';
 import Sidebar from './Sidebar'; 
 import styles from './Main.module.css';
 
@@ -25,6 +25,8 @@ const Main = () => {
     }
   };
 
+  
+
   const handleDeleteUser = async (userId) => {
     try {
         await deleteUser(userId);
@@ -43,16 +45,16 @@ const Main = () => {
 
   const handleStartServerAndLoop = async () => {
     try {
-      const serverData = await startServer();
-      showNotification(`Server Started: ${serverData.message}`);
-      const loopData = await startMainLoop();
-      showNotification(`Main Loop Started: ${loopData.message}`);
-      setServerRunning(true);
+      const data = await startMainLoop();
+      console.log(data.message); 
+      setServerRunning(true); 
     } catch (error) {
-      setError(error.message);
-      setServerRunning(false);
+      console.error("Failed to start server and loop:", error);
+      setError(error.message); 
+      setServerRunning(false); 
     }
   };
+
 
   const handleEndServer = async () => {
     try {

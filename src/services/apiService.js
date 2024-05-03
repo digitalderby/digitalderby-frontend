@@ -18,35 +18,21 @@ export const getAllHorses = async () => {
     }
 }
 
-export const startServer = async () => {
-    try {
-        const response = await api.post('/admin/startRaceServer');
-        if (response.status === 200) {
-            console.log("Server started successfully:", response.data.message);
-            return response.data;
-        } else {
-            throw new Error('Server did not start successfully.');
-        }
-    } catch (error) {
-        console.error("Error starting the server:", error);
-        throw error; 
-    }
-}
-
 export const getServerStatus = async () => {
     try {
-        const response = await api.get('/admin/serverStatus')
-        console.log(response);
-        return response.dats;    
+        const response = await api.get('/admin/serverStatus');
+        console.log("Server status fetched successfully:", response.data);
+        return response.data;
     } catch (error) {
-        console.error('Failed to fetch Server status:', error);
+        console.error('Failed to fetch server status:', error);
         throw error;
     }
-}
+};
+
 
 export const startMainLoop = async () => {
     try {
-        const response = await api.post('/admin/startRaceLoop');
+        const response = await api.post('/admin/openServer');
         if (response.status === 200) {
             console.log("Main loop started successfully:", response.data.message);
             return response.data;
@@ -61,7 +47,7 @@ export const startMainLoop = async () => {
 
 export const endServer = async () => {
     try {
-        const response = await api.post('/admin/stopRaceServer');
+        const response = await api.post('/admin/closeServer');
         if(response.status === 200) {
             console.log("Server Stopped:", response.data.message);
             return response.data;
