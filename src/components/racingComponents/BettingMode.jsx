@@ -5,57 +5,52 @@ import { getImageUrl } from "../../utils";
 import { Modal, Button } from "react-bootstrap";
 import HorsesForBetting from "./HorsesForBetting";
 import { useNavigate } from "react-router";
+import useCountdown from "../../hooks/useCountdown";
+import { SocketContext } from "../../contexts/SocketContext";
 
-const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => {
+const BettingMode = ({ show, handleClose, }) => {
+  const {
+    gameState,
+    raceInfo,
+    clientStatus,
+  } = useContext(SocketContext)
+
+  const timer = useCountdown(new Date(gameState?.raceStartTime || Date.now()))
   const navigate = useNavigate();
-  const [bets, setBets] = useState({});
-  const [timeLeft, setTimeLeft] = useState(gameState ? gameState.bettingTimer : 0);
-  const [wallet, setWallet] = useState(user ? user.wallet : 0);
+  const [betValues, setBetValues] = useState(
+    Array(raceInfo?.race.horses.length || 4).fill(0)
+  )
 
-  useEffect(() => {
-    if (user && user.wallet !== undefined) {
-      setWallet(user.wallet);
-    }
-  }, [user]);
+  if (clientStatus === null) { return }
 
-  useEffect(() => {
-    if (gameState && gameState.race && gameState.race.horses) {
-      const initialBets = {};
-      gameState.race.horses.forEach((horse, index) => {
-        if (!bets[index]) {
-          initialBets[index] = "";
-        }
-      });
-      setBets(initialBets);
-    }
-    setTimeLeft(gameState ? gameState.bettingTimer : 0);
-  }, [gameState]);
+  const currentBet = clientStatus.bet
 
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timerId);
-    }
-  }, [timeLeft]);
+  let currentWallet = clientStatus.wallet
+  if (currentBet !== null) {
+    currentWallet -= clientStatus.bet.betValue
+  }
 
   const placeBet = async (betValue, index) => {
-    const horse = gameState.race.horses[index];
     const horseIdx = index;
-    console.log(user);
 
-    if (betValue > wallet) {
-      console.log(wallet);
+    if (betValue > clientStatus.wallet) {
+      console.log(clientStatus.wallet);
       alert("You don't have enough in your wallet to place this bet.");
       return;
+    } else if (betValue < raceInfo?.minimumBet) {
+      alert(`Bet must be at least ${raceInfo?.minimumBet}.`)
+      return
     }
 
     socket.emit("bet", { betValue, horseIdx }, (res) =>
       console.log(res.message)
     );
+      
+    setBetValues(Array(raceInfo?.race.horses.length || 4).fill(0))
   };
 
-  if (!gameState || !gameState.race || !gameState.race.horses) {
-    return null;
+  if (!gameState || !raceInfo.race || !raceInfo.race.horses) {
+    return <div>Loading betting information...</div>;
   }
 
   const closeGame = () => {
@@ -69,11 +64,25 @@ const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => 
         <Modal.Title>Place Your Bets!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2>Time left: {Math.max(0, timeLeft / 1000)} seconds</h2>
+        <h2>Time left: {timer.currentTime} seconds</h2>
+        {(currentBet === null) ? (
+            <h3>No current bet.</h3>
+        ) : (
+            <h3>Current bet: {currentBet.betValue} on {raceInfo.race.horses[currentBet.horseIdx].name}</h3>
+        )}
         <ul className={styles.betList}>
-          {gameState.race.horses.map((horse, index) => <HorsesForBetting horse={horse} index={index} placeBet={placeBet} key={index}/>)}
+          {raceInfo.race.horses.map((horse, index) =>
+            <HorsesForBetting
+              betValue={betValues[index]}
+              setBetValues={setBetValues}
+              key={index}
+              horse={horse}
+              index={index}
+              placeBet={placeBet}
+            />
+          )}
         </ul>
-        <div>Wallet Balance: ${wallet}</div>
+        <div>Wallet Balance: ${clientStatus.wallet} ({currentWallet})</div>
       </Modal.Body>
       <Modal.Footer>
             <Button onClick={closeGame}>Exit Race</Button>

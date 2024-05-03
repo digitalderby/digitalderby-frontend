@@ -1,5 +1,15 @@
+import { useContext } from "react";
+import { SocketContext } from "../../contexts/SocketContext";
 
-const RaceMode = ({ gameState }) => {
+const RaceMode = () => {
+  const {
+    gameState,
+    raceInfo
+} = useContext(SocketContext)
+
+  console.log(gameState)
+
+
   return (
     <>
       <div className="h-full w-full flex justify-center items-center">
@@ -7,13 +17,14 @@ const RaceMode = ({ gameState }) => {
           <div
             id="raceBackground"
             style={
-              gameState?.raceStates?.time > 0 &&
-              !gameState?.raceStates?.horseStates.some((el) => el.finishTime)
+              gameState?.raceState?.time > 0 &&
+              !gameState?.raceState?.horseState.some((el) => el.finishTime)
                 ? { animation: "slide 30s linear infinite" }
                 : null
             }
           ></div>
-          {gameState?.raceStates?.horseStates?.map((horse, idx) => {
+          {gameState?.raceState?.horseStates?.map((horse, idx) => {
+            console.log(gameState)
             return (
               <div
                 key={idx}
@@ -23,7 +34,7 @@ const RaceMode = ({ gameState }) => {
                 }}
                 className="horseInRace"
               >
-                {horse.horse.spec.icons[0]}
+                {raceInfo?.race.horses[idx].icons[0]}
               </div>
             );
           })}

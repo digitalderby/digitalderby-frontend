@@ -6,19 +6,12 @@ import ResultsMode from '../../components/racingComponents/ResultsMode';
 import "./racePage.css"
 
 const RacePage = () => {
-    //Pull in game state
     const {
         gameState,
-        sendConnect,
-        username,
-        currentBet,
-        betResults,
-        user,
-        connected
+        raceInfo,
     } = useContext(SocketContext)
 
     const [betMode, setBetMode] = useState(false);
-    // const [resultsMode, setResultsMode] = useState(false)
     const handleCloseBet = () => setBetMode(false);
     const handleShowBet = () => setBetMode(true);
 
@@ -43,9 +36,9 @@ const RacePage = () => {
 
     return (
         <>
-            <RaceMode gameState={gameState}/>
-            <BettingMode gameState={gameState} show={betMode} handleClose={handleCloseBet} user={user}/>
-            <ResultsMode gameState={gameState} show={resultsMode} handleClose={handleCloseRes}/>
+            <RaceMode />
+            <BettingMode show={betMode} handleClose={handleCloseBet}/>
+            <ResultsMode show={resultsMode} handleClose={handleCloseRes}/>
 
         </>
     )
