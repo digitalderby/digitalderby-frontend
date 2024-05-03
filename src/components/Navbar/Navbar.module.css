@@ -71,9 +71,15 @@
 }
 
 .wallet {
+  top: 0;
+  font-family: "roboto";
+  font-size: 20px;
+  margin-left: auto; /* Pushes the wallet to the right */
+  padding: 0 15px; /* Add padding around the wallet for spacing */
   display: flex;
-  font-weight: 600;
-  color: #fff;
-  background-color: black;
-  border: #1E242C;
+  align-items: center;
+  color: #fff; /* Assuming white text for visibility */
+  background-color: #1E242C; 
+  margin-right: 5%;
 }
+
