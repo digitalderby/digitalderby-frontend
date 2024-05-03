@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from 'react';
-import axios from 'axios';
 import { removeToken } from '../services/tokenService';
+import { loginUser, registerUser } from '../services/apiService';
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -10,11 +10,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('/api/login', { username, password });
+      const response = await loginUser(username, password);
       if (response.status === 200) {
+        sessionStorage.setItem('token', response.data.token); 
         setUser(response.data);
         setError(null);  // Clear error on successful login
-        console.log('Login successful:', response.data);
+        console.log('Login successful:', response);
+        return response
       } else {
         throw new Error('Login failed, please check your username and password'); // More specific error
       }
@@ -24,13 +26,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (username, password, email) => {
+  const register = async (username, password) => {
     try {
-      const response = await axios.post('/api/register', { username, password, email });
-      if (response.status === 200) {
+      const response = await registerUser(username, password);
+      console.log(response)
+      if (response.status === 201) {
+        sessionStorage.setItem('token', response.data.token); 
         setUser(response.data);
         setError(null);  // Clear error on successful registration
-        console.log('Registration successful:', response.data);
+        console.log('Registration successful:', response);
+        return response
       } else {
         throw new Error('Registration failed, please try again'); // More specific error
       }
