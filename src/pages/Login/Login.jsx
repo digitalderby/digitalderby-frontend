@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useState, useContext } from 'react';
 import { loginUser, registerUser } from '../../services/apiService';
@@ -25,19 +25,26 @@ function Login() {
     e.preventDefault();
     try {
       const apiResponse = registering
-        ? await register(username, password)
-        : await login(username, password);
-      console.log("response", apiResponse)
-      if (apiResponse?.status === 200 || (registering && apiResponse?.status === 201)) {
-        connectSocket(apiResponse.data.token); 
-        navigate('/race');
+
+        ? await registerUser(username, password)
+        : await loginUser(username, password);
+  
+      if (apiResponse.status === 200 || (registering && apiResponse.status === 201)) {
+        sessionStorage.setItem('token', apiResponse.data.token);
+        connectSocket(apiResponse.data.token);
+
+        
+        if (username === 'admin') {
+          navigate('/admin'); 
+        } else {
+          navigate('/race'); 
+        }
+
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
     } catch (err) {
-      const message = err.response?.data?.message || err.message || 'Error during login/register';
-      setError(message);
-      console.error('Error:', err);
+      setError(err.response?.data?.message || err.message || 'Error during login/register');
     }
   }
 
@@ -46,12 +53,10 @@ function Login() {
       <h1 className={styles.title}>{registering ? "Register" : "Login"}</h1>
       <form onSubmit={handleSubmitForm}>
         <div className={styles.email}>
-          <input type='text' name='username' value={username} onChange={(e) => setUsername(e.target.value)}/>
-          <label htmlFor='username'>Username</label>
+          <input type='text' name='username' value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"/>
         </div>
         <div className={styles.password}>
-          <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <label htmlFor='password'>Password</label>
+          <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
         </div>
         {error && <div className={styles.error}>{error}</div>}
         <button className={styles.loginBtn} type='submit'>{registering ? "Submit User" : "Login"}</button>

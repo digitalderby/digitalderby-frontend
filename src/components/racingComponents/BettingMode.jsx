@@ -7,11 +7,9 @@ import HorsesForBetting from "./HorsesForBetting";
 import { useNavigate } from "react-router";
 
 const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => {
-  const navigate = useNavigate
+  const navigate = useNavigate();
   const [bets, setBets] = useState({});
-  const [timeLeft, setTimeLeft] = useState(
-    gameState ? gameState.bettingTimer : 0
-  );
+  const [timeLeft, setTimeLeft] = useState(gameState ? gameState.bettingTimer : 0);
   const [wallet, setWallet] = useState(user ? user.wallet : 0);
 
   useEffect(() => {

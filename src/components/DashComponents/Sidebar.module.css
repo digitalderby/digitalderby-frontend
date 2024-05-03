@@ -1,0 +1,39 @@
+@import url(../../vars.css);
+
+.sidebar {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 8%;
+  align-items: flex-start;
+  justify-content: left;
+  width: 250px; /* Fixed width */
+  background-color: #1E242C;
+  height: 100vh; /* Full height */
+  padding: 20px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); 
+  flex: 1;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+  
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: var(--color-text); 
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
