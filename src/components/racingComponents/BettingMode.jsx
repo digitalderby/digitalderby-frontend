@@ -65,6 +65,11 @@ const BettingMode = ({ show, handleClose, }) => {
       </Modal.Header>
       <Modal.Body>
         <h2>Time left: {timer.currentTime} seconds</h2>
+        {(currentBet === null) ? (
+            <h3>No current bet.</h3>
+        ) : (
+            <h3>Current bet: {currentBet.betValue} on {raceInfo.race.horses[currentBet.horseIdx].name}</h3>
+        )}
         <ul className={styles.betList}>
           {raceInfo.race.horses.map((horse, index) =>
             <HorsesForBetting
