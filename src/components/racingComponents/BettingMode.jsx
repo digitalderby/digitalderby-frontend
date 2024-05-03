@@ -1,6 +1,4 @@
 import { useContext, useState, useEffect } from "react";
-import axios from "axios";
-import { SocketContext } from "../../contexts/SocketContext";
 import { socket } from "../../services/socketService";
 import styles from "./racingComponents.module.css";
 import { getImageUrl } from "../../utils";
@@ -57,7 +55,12 @@ const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => 
   };
 
   if (!gameState || !gameState.race || !gameState.race.horses) {
-    return <div>Loading betting information...</div>;
+    return null;
+  }
+
+  const closeGame = () => {
+    socket.close()
+    navigate('/')
   }
 
   return (
@@ -73,7 +76,7 @@ const BettingMode = ({ userId, gameId, show, handleClose, user, gameState }) => 
         <div>Wallet Balance: ${wallet}</div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => navigate('/')}>Exit Race</Button>
+            <Button onClick={closeGame}>Exit Race</Button>
       </Modal.Footer>
     </Modal>
   );
