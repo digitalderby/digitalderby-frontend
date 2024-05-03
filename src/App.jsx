@@ -9,6 +9,8 @@ import HorseListPage from "./pages/HorseListPage/HorseListPage.jsx";
 import HorseDetailPage from "./pages/HorseDetailPage/HorseDetailPage.jsx";
 import RacePage from "./pages/RacePage/RacePage.jsx";
 import DashboardPage from "./pages/DashboardPage/DashboardPage.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (

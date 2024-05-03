@@ -2,17 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useState, useContext } from 'react';
 import { loginUser, registerUser } from '../../services/apiService';
+import { useAuth } from '../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import { SocketContext } from '../../contexts/SocketContext';
 
 function Login() {
   const navigate = useNavigate();
   const { connectSocket } = useContext(SocketContext);
+  const { login, register } = useContext(AuthContext)
   const [registering, setRegistering] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  function handleToggleRegister() {
+  function handleToggleRegister(e) {
+    e.preventDefault()
     setRegistering(!registering);
     setError('');
   }
@@ -21,6 +25,7 @@ function Login() {
     e.preventDefault();
     try {
       const apiResponse = registering
+
         ? await registerUser(username, password)
         : await loginUser(username, password);
   
@@ -34,6 +39,7 @@ function Login() {
         } else {
           navigate('/race'); 
         }
+
       } else {
         throw new Error(apiResponse.data.message || 'Unexpected error occurred');
       }
