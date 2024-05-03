@@ -48,6 +48,21 @@ export const startMainLoop = async () => {
     }
 }
 
+export const endServer = async () => {
+    try {
+        const response = await api.post('/admin/stopRaceServer');
+        if(response.status === 200) {
+            console.log("Server Stopped:", response.data.message);
+            return response.data;
+        } else {
+            throw new Error('Server not stopped successfully.');
+        }
+    } catch (error) {
+        console.error("Error stopping the server:", error);
+        throw error;
+    }
+}
+
 
 // POST
 export const registerUser = async (username, password) => {
