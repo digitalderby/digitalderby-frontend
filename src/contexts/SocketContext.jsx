@@ -47,6 +47,11 @@ export function SocketContextProvider({ children }) {
     connect(token); 
   };
 
+  // Function to disconnect socket
+  const disconnectSocket = () => {
+    socket.close()
+  }
+
   return (
     <SocketContext.Provider value={{
       gameState,
@@ -57,6 +62,7 @@ export function SocketContextProvider({ children }) {
       betResults,
       user,
       connectSocket, // Expose connectSocket function
+      disconnectSocket
     }}>
       {children}
     </SocketContext.Provider>
