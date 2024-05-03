@@ -10,6 +10,7 @@ const RacePage = () => {
   //Pull in game state
   const {
     gameState,
+    raceInfo,
     sendConnect,
     username,
     currentBet,
