@@ -87,6 +87,17 @@ export const getAllUsers = async () => {
     }
 };
 
+// src/services/apiService.js
+export const deleteUser = async (user) => {
+    try {
+        const response = await api.delete(`/users/${user._id}`);
+        return response.data;  
+    } catch (error) {
+        console.error("Failed to delete user:", error);
+        throw error;
+    }
+};
+
 
 //TODO: Logout user function
 

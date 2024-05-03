@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { startServer, startMainLoop, endServer, getAllUsers } from '../../services/apiService';
+import { startServer, startMainLoop, endServer, getAllUsers, deleteUser } from '../../services/apiService';
 import Sidebar from './Sidebar'; // Assuming this is the correct path
 import styles from './Main.module.css';
 
@@ -24,6 +24,17 @@ const Main = () => {
       setError(error.message);
     }
   };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+        await deleteUser(userId);
+        showNotification(`User deleted successfully`);
+        setUsers(prevUsers => prevUsers.filter(user => user._id !== userId)); // Update state to remove deleted user
+    } catch (error) {
+        setError(`Failed to delete user: ${error.message}`);
+    }
+};
+
 
   const showNotification = (message) => {
     setNotification(message);
@@ -70,7 +81,9 @@ const Main = () => {
         </>;
       case 'users':
         return users.map(user => (
-          <div className={styles.users} key={user.username}>{user}</div>
+          <div className={styles.users} key={user}>
+          <span onClick={() => handleDeleteUser(user._id)}>{user}</span>
+          </div>
         ));
       default:
         return null;
