@@ -31,7 +31,7 @@ const Main = () => {
     try {
         await deleteUser(userId);
         showNotification(`User deleted successfully`);
-        setUsers(prevUsers => prevUsers.filter(user => user._id !== userId)); // Update state to remove deleted user
+        setUsers(prevUsers => prevUsers.filter(user => user._id !== userId)); 
     } catch (error) {
         setError(`Failed to delete user: ${error.message}`);
     }
@@ -46,6 +46,7 @@ const Main = () => {
   const handleStartServerAndLoop = async () => {
     try {
       const data = await startMainLoop();
+      showNotification(`Server Started: ${data.message}`);
       console.log(data.message); 
       setServerRunning(true); 
     } catch (error) {
