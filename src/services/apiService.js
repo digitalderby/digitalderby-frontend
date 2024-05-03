@@ -18,6 +18,50 @@ export const getAllHorses = async () => {
     }
 }
 
+export const getServerStatus = async () => {
+    try {
+        const response = await api.get('/admin/serverStatus');
+        console.log("Server status fetched successfully:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to fetch server status:', error);
+        throw error;
+    }
+};
+
+
+export const startMainLoop = async () => {
+    try {
+        const response = await api.post('/admin/openServer');
+        if (response.status === 200) {
+            console.log("Main loop started successfully:", response.data.message);
+            return response.data;
+        } else {
+            throw new Error('Main loop did not start successfully.');
+        }
+    } catch (error) {
+        console.error("Error starting the main loop:", error);
+        throw error; 
+    }
+}
+
+export const endServer = async () => {
+    try {
+        const response = await api.post('/admin/closeServer');
+        if(response.status === 200) {
+            console.log("Server Stopped:", response.data.message);
+            return response.data;
+        } else {
+            throw new Error('Server not stopped successfully.');
+        }
+    } catch (error) {
+        console.error("Error stopping the server:", error);
+        throw error;
+    }
+}
+
+
+
 // POST
 export const registerUser = async (username, password) => {
     return await api.post('/auth/signup', {username, password})
@@ -27,4 +71,35 @@ export const loginUser = async (username, password) => {
     return await api.post('/auth/login', {username, password})
 }
 
+export const getAllUsers = async () => {
+    try {
+        const response = await api.get('/users');
+        if (response.status !== 200) {
+            throw new Error('Failed to fetch users');
+        }
+        return response.data; 
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        throw error;
+    }
+};
+
+// src/services/apiService.js
+export const deleteUser = async (user) => {
+    try {
+        const response = await api.delete(`/users/${user._id}`);
+        return response.data;  
+    } catch (error) {
+        console.error("Failed to delete user:", error);
+        throw error;
+    }
+};
+
+
 //TODO: Logout user function
+
+export const logoutUser = () => {
+    sessionStorage.removeItem('token');
+    // Redirect user to the login page
+    window.location.href = '/login';
+}
