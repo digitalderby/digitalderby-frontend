@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
-import "./racePage.css"
 import { SocketContext } from '../../contexts/SocketContext';
 import BettingMode from '../../components/racingComponents/BettingMode';
 import RaceMode from '../../components/racingComponents/RaceMode';
 import ResultsMode from '../../components/racingComponents/ResultsMode';
+import "./racePage.css"
 
 const RacePage = () => {
     const {

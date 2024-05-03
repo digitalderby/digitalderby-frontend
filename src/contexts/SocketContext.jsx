@@ -52,6 +52,11 @@ export function SocketContextProvider({ children }) {
     connect(token); 
   };
 
+  // Function to disconnect socket
+  const disconnectSocket = () => {
+    socket.close()
+  }
+
   return (
     <SocketContext.Provider value={{
       connected,
@@ -64,6 +69,7 @@ export function SocketContextProvider({ children }) {
       poolValue,
 
       connectSocket, // Expose connectSocket function
+      disconnectSocket
     }}>
       {children}
     </SocketContext.Provider>

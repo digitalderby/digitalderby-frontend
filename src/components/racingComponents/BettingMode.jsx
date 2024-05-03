@@ -1,6 +1,4 @@
 import { useContext, useState, useEffect } from "react";
-import axios from "axios";
-import { SocketContext } from "../../contexts/SocketContext";
 import { socket } from "../../services/socketService";
 import styles from "./racingComponents.module.css";
 import { getImageUrl } from "../../utils";
@@ -8,6 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 import HorsesForBetting from "./HorsesForBetting";
 import { useNavigate } from "react-router";
 import useCountdown from "../../hooks/useCountdown";
+import { SocketContext } from "../../contexts/SocketContext";
 
 const BettingMode = ({ show, handleClose, }) => {
   const {
@@ -16,7 +15,7 @@ const BettingMode = ({ show, handleClose, }) => {
     clientStatus,
   } = useContext(SocketContext)
 
-  const [timer, setEndTime] = useCountdown(gameState?.raceStartTime || Date.now())
+  const [timer] = useCountdown(gameState?.raceStartTime || Date.now())
   const navigate = useNavigate();
   const [betValues, setBetValues] = useState(
     Array(raceInfo?.race.horses.length || 4).fill(0)
@@ -53,6 +52,11 @@ const BettingMode = ({ show, handleClose, }) => {
     return <div>Loading betting information...</div>;
   }
 
+  const closeGame = () => {
+    socket.close()
+    navigate('/')
+  }
+
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header>
@@ -75,7 +79,7 @@ const BettingMode = ({ show, handleClose, }) => {
         <div>Wallet Balance: ${clientStatus.wallet} ({currentWallet})</div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => navigate('/')}>Exit Race</Button>
+            <Button onClick={closeGame}>Exit Race</Button>
       </Modal.Footer>
     </Modal>
   );

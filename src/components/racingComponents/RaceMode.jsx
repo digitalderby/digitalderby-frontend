@@ -1,11 +1,7 @@
-import { Button, Modal } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
-import styles from './racingComponents.module.css'
+import { useContext } from "react";
 import { SocketContext } from "../../contexts/SocketContext";
 
 const RaceMode = () => {
-  const [show, setShow] = useState(false);
-
   const {
     gameState,
     raceInfo
@@ -13,14 +9,9 @@ const RaceMode = () => {
 
   console.log(gameState)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  
 
   return (
     <>
-      <h2>RaceMode</h2>
       <div className="h-full w-full flex justify-center items-center">
         <div id="raceScrollContainer">
           <div
