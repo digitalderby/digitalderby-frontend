@@ -14,7 +14,9 @@ const HorsesForBetting = ({betValue, setBetValues, horse, index, placeBet}) => {
           placeholder="Bet amount"
           value={betValue}
           onChange={(e) => setBetValues((prev) => {
-            prev.splice(1, 1, e.target.value)
+            let next = [...prev]
+            next.splice(index, 1, e.target.value)
+            return next
           })}
         />
         <button className={styles.betButton} onClick={() => placeBet(betValue, index)}>

@@ -31,7 +31,6 @@ const BettingMode = ({ show, handleClose, }) => {
   }
 
   const placeBet = async (betValue, index) => {
-    setBetValues(Array.raceInfo?.race.horses.length || 4).fill(0)
     const horseIdx = index;
 
     if (betValue > clientStatus.wallet) {
@@ -46,6 +45,8 @@ const BettingMode = ({ show, handleClose, }) => {
     socket.emit("bet", { betValue, horseIdx }, (res) =>
       console.log(res.message)
     );
+      
+    setBetValues(Array(raceInfo?.race.horses.length || 4).fill(0))
   };
 
   if (!gameState || !raceInfo.race || !raceInfo.race.horses) {
@@ -68,7 +69,7 @@ const BettingMode = ({ show, handleClose, }) => {
           {raceInfo.race.horses.map((horse, index) =>
             <HorsesForBetting
               betValue={betValues[index]}
-              setBetValue={setBetValues}
+              setBetValues={setBetValues}
               key={index}
               horse={horse}
               index={index}
