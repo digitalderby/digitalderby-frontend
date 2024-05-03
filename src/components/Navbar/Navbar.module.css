@@ -50,6 +50,12 @@
   width: 200px; 
 }
 
+.logoutLink {
+  color: #fff; 
+  cursor: pointer; 
+}
+
+
 .visible {
   display: flex; 
 }

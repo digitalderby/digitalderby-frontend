@@ -1,20 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { getImageUrl } from '../../utils';
-import { NavLink } from 'react-router-dom';
 import Wallet from './Wallet';
-
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, [isLoggedIn]);
 
   const handleLinkClick = () => {
     setMenuOpen(false);
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    setIsLoggedIn(false); 
+    navigate('/login'); 
+  };
+
   return (
     <nav className={styles.navbar}>
-      <NavLink to="/" className={styles.title} >Digitalderby</NavLink>
+      <NavLink to="/" className={styles.title}>Digitalderby</NavLink>
       <div className={styles.wallet}><Wallet /></div>
       <div className={styles.menu}>
         <img 
@@ -24,15 +36,19 @@ function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)} 
         />
         <ul className={`${styles.menuitems} ${menuOpen ? styles.visible : styles.hidden}`}>
-          <NavLink to="/login" onClick={handleLinkClick}>Login</NavLink>
+          {isLoggedIn ? (
+            <li className={styles.logoutLink} onClick={handleLogout}>Logout</li>
+          ) : (
+            <NavLink to="/login" onClick={handleLinkClick}>Login</NavLink>
+          )}
           <NavLink to="/race" onClick={handleLinkClick}>Next Race</NavLink>
           <NavLink to="/horses" onClick={handleLinkClick}>Horse Stats</NavLink>
           <NavLink to="/user" onClick={handleLinkClick}>User</NavLink>
-          <NavLink to="/test" onClick={handleLinkClick}>Test</NavLink>
+          <NavLink to="/admin" onClick={handleLinkClick}>Admin</NavLink>
         </ul>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Navbar;
