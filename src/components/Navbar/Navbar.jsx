@@ -4,15 +4,21 @@ import { getImageUrl } from '../../utils';
 import { NavLink } from 'react-router-dom';
 import Wallet from './Wallet';
 import { AuthContext } from '../../contexts/AuthContext';
-import { Nav } from 'react-bootstrap';
+import { SocketContext } from '../../contexts/SocketContext';
 
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext)
+  const { disconnectSocket } = useContext(SocketContext)
   const handleLinkClick = () => {
     setMenuOpen(false);
   };
+
+  const logoutAndDisconnect = () => {
+    disconnectSocket()
+    logout()
+  }
 
   return (
     <nav className={styles.navbar}>
@@ -33,7 +39,7 @@ function Navbar() {
           }
           {
             user
-            ? <NavLink to="/" onClick={logout}>Logout</NavLink>
+            ? <NavLink to="/" onClick={logoutAndDisconnect}>Logout</NavLink>
             : <NavLink to="/login" onClick={handleLinkClick}>Login</NavLink>
 
           }

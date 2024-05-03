@@ -4,18 +4,14 @@ import styles from "./racingComponents.module.css";
 import { useNavigate } from "react-router";
 
 const ResultsMode = ({ gameState, show, handleClose }) => {
-  // useEffect(() => {
-  //   console.log('Current gameState in ResultsMode:', gameState);
-  // }, [gameState]);
   const navigate = useNavigate()
-
-  if (
-    !gameState ||
-    !gameState.raceStates ||
-    !gameState.raceStates.horseStates
-  ) {
-    return <div>Loading results...</div>;
-  }
+  // if (
+  //   !gameState ||
+  //   !gameState.raceStates ||
+  //   !gameState.raceStates.horseStates
+  // ) {
+  //   return <div>Loading results...</div>;
+  // }
 
   // Extract horse states and rankings
   const { horseStates, rankings } = gameState.raceStates;
@@ -58,7 +54,10 @@ const ResultsMode = ({ gameState, show, handleClose }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => navigate('/')}>Exit Race</Button>
+        <Button onClick={() => {
+              socket.close()
+              navigate('/')
+            }}>Exit Race</Button>
       </Modal.Footer>
     </Modal>
   );
