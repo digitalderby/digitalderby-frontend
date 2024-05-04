@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { SocketContext } from "../../contexts/SocketContext";
 
+const horseIcons = ['🐴', '🦓', '🦄'];
+
 const RaceMode = () => {
   const { gameState, raceInfo } = useContext(SocketContext);
 
@@ -20,17 +22,27 @@ const RaceMode = () => {
             }
           ></div>
           {gameState?.raceState?.horseStates?.map((horse, idx) => {
-            // console.log(gameState);
+            const posPercent = horse.position/raceInfo.race.raceLength
             return (
               <div
                 key={idx}
                 style={{
-                  left: `${(horse.position / 100 + 5) * 0.9}%`,
+                  right: `${80 - (posPercent*100) * 0.75}%`,
                   top: `${20 * idx + 12}%`,
                 }}
                 className="horseInRace"
               >
-                {raceInfo?.race.horses[idx].icons[0]}
+                {raceInfo?.race.horses[idx].icons.map((ic, i) => {
+                  if (horseIcons.includes(ic)) {
+                    return ( 
+                      <span key={i} className='flip'>
+                        {ic}
+                      </span>
+                    )
+                  } else {
+                    return ( <>{ic}</> )
+                  }
+                })}
               </div>
             );
           })}

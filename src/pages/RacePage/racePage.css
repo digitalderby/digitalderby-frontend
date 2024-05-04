@@ -22,8 +22,13 @@
 
 .horseInRace {
     position: absolute;
-    transform: scale(-1,1);
     font-size: 2.5em;
+    text-align: right;
+}
+
+span.flip {
+  display: inline-block;
+  scale: -1 1;
 }
 
 #openModals {
@@ -34,9 +39,9 @@
 
 @keyframes slide {
     0% {
-      transform: translate3d(0, 0, 0);
+      --translate: translate3d(0, 0, 0);
     }
     100% {
-      transform: translate3d(-1000px, 0, 0); 
+      --translate: translate3d(-1000px, 0, 0); 
     }
   }
