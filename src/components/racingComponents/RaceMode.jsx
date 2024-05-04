@@ -2,13 +2,9 @@ import { useContext } from "react";
 import { SocketContext } from "../../contexts/SocketContext";
 
 const RaceMode = () => {
-  const {
-    gameState,
-    raceInfo
-} = useContext(SocketContext)
+  const { gameState, raceInfo } = useContext(SocketContext);
 
-  console.log(gameState)
-
+  // console.log(gameState);
 
   return (
     <>
@@ -24,7 +20,7 @@ const RaceMode = () => {
             }
           ></div>
           {gameState?.raceState?.horseStates?.map((horse, idx) => {
-            console.log(gameState)
+            // console.log(gameState);
             return (
               <div
                 key={idx}
@@ -40,7 +36,6 @@ const RaceMode = () => {
           })}
         </div>
       </div>
-
     </>
   );
 };

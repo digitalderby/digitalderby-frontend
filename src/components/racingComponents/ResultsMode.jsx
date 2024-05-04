@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { socket } from "../../services/socketService";
 import { useContext } from "react";
 import { SocketContext } from "../../contexts/SocketContext";
+import "./racingComponents.module.css"
 
 const ResultsMode = ({ show, handleClose }) => {
   const {
@@ -34,12 +35,14 @@ const ResultsMode = ({ show, handleClose }) => {
     navigate("/");
   };
 
+  const modalStyle = {backgroundColor: "black", color: "white"}
+
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header>
+      <Modal.Header style={modalStyle}>
         <Modal.Title>Results</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={modalStyle}>
         {(!gameState || gameState.status !== 'results') ? (
           <div>Loading results...</div>
         ) : (
@@ -75,7 +78,7 @@ const ResultsMode = ({ show, handleClose }) => {
           </div>
         )}
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer style={modalStyle}>
         <Button onClick={handleClose} variant="secondary">Close</Button>
       </Modal.Footer>
     </Modal>

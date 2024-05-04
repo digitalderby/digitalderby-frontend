@@ -7,7 +7,7 @@ export let socket = io(`${BACKEND_URL}/user`, {
 })
 
 export function connect(token) {
-    console.log(token)
+    // console.log(token)
     socket.auth = {
         token: token,
     }
