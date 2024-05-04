@@ -20,8 +20,6 @@ const HorsesForBetting = ({
       <li className={styles.betListItem} key={index}>
         <span className={styles.horseDetails}>
           {horse.name}
-          {/* Top Speed: {horse.stats.topSpeed}, Stamina:{" "}
-            {horse.stats.stamina}, Acceleration: {horse.stats.acceleration} */}
         </span>
         <a
           className="btn dropdown-toggle"

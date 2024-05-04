@@ -5,16 +5,16 @@ const HorseStats = ({ horse }) => {
     
 
   return (
-    <>
-      <div className="horseStats row ml-1">
+    <div className="m-3">
+      <div className="horseStats row m-1">
         <div className="col-4">
-          Top Speed <span>{horse.stats.topSpeed}</span>
+          Top Speed
         </div>
         <div className="col-4">
-          Stamina <span>{horse.stats.stamina}</span>
+          Stamina
         </div>
         <div className="col-4">
-          Acceleration <span>{horse.stats.acceleration}</span>
+          Acceleration
         </div>
       </div>
       <div className="row">
@@ -22,7 +22,7 @@ const HorseStats = ({ horse }) => {
         <StatSquares stat={horse.stats.stamina}/>
         <StatSquares stat={horse.stats.acceleration}/>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -40,21 +40,21 @@ const RacePage = () => {
     handleShowBet();
   }
   useEffect(() => {
-    !betMode.open && !betMode.userClosed && switchToBetMode();
-    // switch (gameState?.status) {
-    //   case "betting":
-    //     !betMode.open && !betMode.userClosed && switchToBetMode();
-    //     break;
-    //   case "race":
-    //       betMode.open && autoCloseBet();
-    //     break;
-    //   case "results":
-    //     !resultsMode.userClosed && handleShowRes();
-    //     break;
-    //   default:
-    //     null;
-    //     break;
-    // }
+    // !betMode.open && !betMode.userClosed && switchToBetMode();
+    switch (gameState?.status) {
+      case "betting":
+        !betMode.open && !betMode.userClosed && switchToBetMode();
+        break;
+      case "race":
+          betMode.open && autoCloseBet();
+        break;
+      case "results":
+        !resultsMode.userClosed && handleShowRes();
+        break;
+      default:
+        null;
+        break;
+    }
   }, [gameState]);
 
   return (
