@@ -46,6 +46,12 @@ span.flip {
     }
   }
 
+  .comment-entry {
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
   .comment-box {
     position: fixed;
     bottom: 0;
@@ -59,6 +65,8 @@ span.flip {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     z-index: 10; 
+    transition: filter 0.3s;
+    filter: blur(0);
   }
 
 
@@ -69,3 +77,4 @@ span.flip {
     font-size: 22px;
     background-color: #333;
 }
+

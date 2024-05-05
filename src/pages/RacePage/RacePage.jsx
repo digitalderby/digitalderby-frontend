@@ -41,12 +41,11 @@ const RacePage = () => {
     }
 
     if (gameState?.status === "race" && gameState.eventMessages) {
-      const newComments = [...gameState.eventMessages];
       setRaceComments((prevComments) => {
-        // Add new comments and ensure only the latest 3 are kept
-        return [...prevComments, ...newComments].slice(-3);
+        // Add new comments, remove the oldest one if the limit is reached
+        const updatedComments = [...prevComments, ...gameState.eventMessages];
+        return updatedComments.slice(Math.max(0, updatedComments.length - 3));
       });
-
     }
   }, [gameState]);
 
@@ -76,7 +75,7 @@ const RacePage = () => {
       <div className="comment-box">
         <div className="comments">
           {raceComments.map((comment, index) => (
-            <p key={index}>{comment}</p>  
+            <p key={index} className="comment-entry">{comment}</p>  
           ))}
         </div>
       </div>
