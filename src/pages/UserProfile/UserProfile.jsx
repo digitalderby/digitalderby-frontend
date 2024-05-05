@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import { api } from './../../services/apiConnection'
 import { SocketContext } from '../../contexts/SocketContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faWallet, faCreditCard, faListAlt } from '@fortawesome/free-solid-svg-icons';
 import styles from './UserProfile.module.css';
 
 const UserProfile = () => {
-  const { user } = useContext(SocketContext);
+  const { clientStatus } = useContext(SocketContext);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (!user) return;
+      if (!clientStatus) return;
       setLoading(true);
       try {
-        const response = await axios.get(`/users/${user.username}`);
+        const response = await api.get(`/users/{clientStatus.username}`)
         setUserData(response.data);
         setError(null);
       } catch (err) {
@@ -28,9 +28,9 @@ const UserProfile = () => {
     };
 
     fetchUser();
-  }, [user]);
+  }, [clientStatus]);
 
-  if (!user) {
+  if (!clientStatus) {
     return <div>User data not available.</div>;
   }
 
@@ -43,8 +43,8 @@ const UserProfile = () => {
       <div className={styles.profileInfo}>
         <p className={styles.username}><FontAwesomeIcon icon={faUser} /> Username: {userData?.username}</p>
         <p className={styles.userId}><FontAwesomeIcon icon={faCreditCard} /> ID: {userData?.id}</p>
-        <p className={styles.wallet}><FontAwesomeIcon icon={faWallet} /> Wallet: {userData?.wallet}</p>
-        <p className={styles.bankruptcy}>Bankruptcies: {userData?.bankruptcies}</p>
+        <p className={styles.wallet}><FontAwesomeIcon icon={faWallet} /> Wallet: {userData?.profile?.wallet}</p>
+        <p className={styles.bankruptcy}>Bankruptcies: {userData?.profile?.bankruptcies}</p>
         <div className={styles.betLog}>
           <p><FontAwesomeIcon icon={faListAlt} /> Previous Bets:</p>
           <ul>
