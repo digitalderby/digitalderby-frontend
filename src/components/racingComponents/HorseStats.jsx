@@ -26,4 +26,4 @@ const HorseStats = ({ horse }) => {
   );
 };
 
-export default HorseStats;
+export default HorseStats
