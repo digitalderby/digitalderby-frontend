@@ -1,16 +1,14 @@
 import { Modal, Button } from "react-bootstrap";
-import { useNavigate } from "react-router";
-import { socket } from "../../services/socketService";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { SocketContext } from "../../contexts/SocketContext";
-import "./racingComponents.module.css"
+import styles from "./racingComponents.module.css"
 
-const ResultsMode = ({ show, handleClose }) => {
+const ResultsMode = ({ show, handleClose, savedBet }) => {
   const {
       gameState,
       raceInfo,
   } = useContext(SocketContext)
-  const navigate = useNavigate();
+
   if (
     !gameState ||
     gameState.status !== 'results'
@@ -30,36 +28,43 @@ const ResultsMode = ({ show, handleClose }) => {
   // Identify the winner (first in the rankings array)
   const winner = sortedHorses[0];
 
-  const closeGame = () => {
-    socket.close();
-    navigate("/");
-  };
+  // confirm if winner matches horse from user bet
+  let isUserWinner = raceInfo.race.horses[savedBet]?.id === winner.horseInfo.id
+  savedBet === null ? isUserWinner = null : null // if user didn't place a bet
+
+  console.log("savedBet", savedBet)
+  console.log("winningHorse", winner)
+  console.log("userWinner:", isUserWinner)
 
   const modalStyle = {backgroundColor: "black", color: "white"}
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header style={modalStyle}>
-        <Modal.Title>Results</Modal.Title>
+      <Modal.Header className={styles.modal}>
+        <Modal.Title>Race Results</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={modalStyle}>
+      <Modal.Body className={styles.modal}>
         {(!gameState || gameState.status !== 'results') ? (
           <div>Loading results...</div>
         ) : (
-          <div>
-            <h1>Race Results</h1>
+          <div className={styles.resultsBody}>
+            <div className="winLoseMsg">
+              {
+                isUserWinner
+                ? <h1>You Won</h1>
+                : isUserWinner === false ? <h1>You Lost</h1> : null
+              }
+            </div>
             {winner ? (
-              <div className="winner">
+              <div className={styles.winner}>
                 <h2>🏆 {winner.horseInfo.name}</h2>
-                <p>Details:</p>
                 <ul>
                   <li>Finish Time: {winner.finishTime / 1000} s</li>
                 </ul>
               </div>
             ) : (
-              <p>No results available.</p>
+              <p className={styles.winner}>No results available.</p>
             )}
-            <h3>All Participants:</h3>
             <ol>
               {sortedHorses.map((horse, index) => {
                 const finishTime = finishTimes[horse.index]
@@ -68,9 +73,9 @@ const ResultsMode = ({ show, handleClose }) => {
                 const ms = finishTime-seconds
 
                 return (
-                  <li key={index}>
-                    {horse.horseInfo.name} - Finished with a time of{" "}
-                    {minutes}:{seconds}:{ms}
+                  <li key={index} className="row m-2 w-100">
+                    <div className="col-6">{index === 0 ? "🏆" : null} {horse.horseInfo.name}</div>
+                    <div className="col-6">time: {" "} {minutes}:{seconds}:{ms}</div>
                   </li>
                 )
               })}
