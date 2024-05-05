@@ -16,7 +16,7 @@ const UserProfile = () => {
       if (!clientStatus) return;
       setLoading(true);
       try {
-        const response = await api.get(`/users/{clientStatus.username}`)
+        const response = await api.get(`/users/${clientStatus.username}`)
         setUserData(response.data);
         setError(null);
       } catch (err) {
@@ -50,7 +50,7 @@ const UserProfile = () => {
           <ul>
             {userData?.profile?.betLog.map((bet, index) => (
               <li key={index}>
-                Game ID: {bet.gameId}, Bet Value: {bet.betValue}, Returns: {bet.returns}
+                Game Time: {bet.gameId.createdAt}, Bet Value: {bet.betValue}, Returns: {bet.returns}
               </li>
             ))}
           </ul>
