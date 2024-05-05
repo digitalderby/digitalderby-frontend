@@ -46,6 +46,7 @@ const RacePage = () => {
         // Add new comments and ensure only the latest 3 are kept
         return [...prevComments, ...newComments].slice(-3);
       });
+
     }
   }, [gameState]);
 
