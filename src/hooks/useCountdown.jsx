@@ -10,7 +10,7 @@ export default function useCountdown(time) {
 
   useEffect(() => {
     function onTick() {
-      console.log(time - 0)
+      // console.log(time - 0)
 
       const diff = (time - Date.now())/1000
       setCurrentTime(Math.max(0, diff).toFixed(PRECISION))

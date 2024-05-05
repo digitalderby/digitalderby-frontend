@@ -4,13 +4,9 @@ import { SocketContext } from "../../contexts/SocketContext";
 const horseIcons = ['🐴', '🦓', '🦄'];
 
 const RaceMode = () => {
-  const {
-    gameState,
-    raceInfo
-} = useContext(SocketContext)
+  const { gameState, raceInfo } = useContext(SocketContext);
 
-  console.log(gameState)
-
+  // console.log(gameState);
 
   return (
     <>
@@ -52,7 +48,6 @@ const RaceMode = () => {
           })}
         </div>
       </div>
-
     </>
   );
 };

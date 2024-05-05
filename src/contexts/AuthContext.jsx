@@ -1,12 +1,17 @@
-import { createContext, useContext, useState } from 'react';
-import { removeToken, setToken } from '../services/tokenService';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { getToken, removeToken, setToken } from '../services/tokenService';
 import { loginUser, registerUser } from '../services/apiService';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    checkIsLoggedIn()
+  },[])
 
   const login = async (username, password) => {
     try {
@@ -14,7 +19,8 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         setToken(response.data.token) 
         setUser(response.data);
-        console.log(response.data)
+        checkIsLoggedIn()
+        // console.log(response.data)
         setError(null);  // Clear error on successful login
         console.log('Login successful:', response);
         return response
@@ -46,8 +52,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const isLoggedIn = () => {
-    
+  const checkIsLoggedIn = () => {
+    const token = getToken()
+    token ? setIsLoggedIn(true) : setIsLoggedIn(false)
+    return token ? true : false
   }
 
   const logout = () => {
@@ -57,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, error }}>
+    <AuthContext.Provider value={{ user, login, register, logout, isLoggedIn, checkIsLoggedIn, error }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,8 +6,11 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 const Wallet = () => {
   const { clientStatus } = useContext(SocketContext);
+  const { isLoggedIn } = useContext(AuthContext)
 
-  if (!clientStatus || !clientStatus.wallet) {
+  if (!isLoggedIn) {
+    return null
+  } else if (!clientStatus || !clientStatus.wallet) {
     return <div>Wallet data not available.</div>;
   }
 

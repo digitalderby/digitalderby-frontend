@@ -20,6 +20,7 @@ const RacePage = () => {
   } = useContext(SocketContext);
   //if betMode is true, BetModal is displayed
   const initialState = { open: false, userClosed: false };
+      // prevents reopening if user closed the modal
   const openState = { open: true, userClosed: false };
 
   const [betMode, setBetMode] = useState(initialState);
@@ -29,6 +30,7 @@ const RacePage = () => {
 
   //if resultsMode is true, ResultsModal is displayed
   const [resultsMode, setResultsMode] = useState(initialState);
+    // prevents reopening if user closed the modal
   const userCloseRes = () => setResultsMode({ open: false, userClosed: true });
   const handleShowRes = () => setResultsMode(openState);
   const autoCloseRes = () => setResultsMode(initialState);
@@ -38,6 +40,7 @@ const RacePage = () => {
     handleShowBet();
   }
   useEffect(() => {
+    // !betMode.open && !betMode.userClosed && switchToBetMode();
     switch (gameState?.status) {
       case "betting":
         !betMode.open && !betMode.userClosed && switchToBetMode();
