@@ -7,53 +7,49 @@ import "./racePage.css";
 import { Button } from "react-bootstrap";
 
 const RacePage = () => {
-  //Pull in game state
   const {
     gameState,
-    raceInfo,
-    sendConnect,
     username,
-    currentBet,
-    betResults,
     user,
-    connected,
   } = useContext(SocketContext);
-  //if betMode is true, BetModal is displayed
+
   const initialState = { open: false, userClosed: false };
-      // prevents reopening if user closed the modal
-  const openState = { open: true, userClosed: false };
-
+  const [raceComments, setRaceComments] = useState([]);
   const [betMode, setBetMode] = useState(initialState);
-  const userCloseBet = () => setBetMode({ open: false, userClosed: true });
-  const handleShowBet = () => setBetMode(openState);
-  const autoCloseBet = () => setBetMode(initialState);
-
-  //if resultsMode is true, ResultsModal is displayed
   const [resultsMode, setResultsMode] = useState(initialState);
-    // prevents reopening if user closed the modal
-  const userCloseRes = () => setResultsMode({ open: false, userClosed: true });
-  const handleShowRes = () => setResultsMode(openState);
-  const autoCloseRes = () => setResultsMode(initialState);
 
-  function switchToBetMode() {
-    autoCloseRes();
-    handleShowBet();
-  }
+  const handleShowBet = () => {
+    if (!betMode.open && !betMode.userClosed) {
+      setBetMode({ open: true, userClosed: false });
+    }
+  };
+
+  const handleShowRes = () => {
+    if (!resultsMode.open && !resultsMode.userClosed) {
+      setResultsMode({ open: true, userClosed: false });
+    }
+  };
+
+  const closeBetMode = () => setBetMode({ open: false, userClosed: true });
+  const closeResultsMode = () => setResultsMode({ open: false, userClosed: true });
+
   useEffect(() => {
-    // !betMode.open && !betMode.userClosed && switchToBetMode();
     switch (gameState?.status) {
       case "betting":
-        !betMode.open && !betMode.userClosed && switchToBetMode();
+        handleShowBet();
         break;
       case "race":
-          betMode.open && autoCloseBet();
+        closeBetMode();
         break;
       case "results":
-        !resultsMode.userClosed && handleShowRes();
+        handleShowRes();
         break;
       default:
-        null;
         break;
+    }
+
+    if (gameState?.status === "race" && gameState.eventMessages) {
+      setRaceComments((prevComments) => [...prevComments, ...gameState.eventMessages]);
     }
   }, [gameState]);
 
@@ -63,25 +59,28 @@ const RacePage = () => {
       <BettingMode
         gameState={gameState}
         show={betMode.open}
-        handleClose={userCloseBet}
+        handleClose={closeBetMode}
         user={user}
       />
       <ResultsMode
         gameState={gameState}
         show={resultsMode.open}
-        handleClose={userCloseRes}
+        handleClose={closeResultsMode}
       />
       {gameState?.status === "betting" || gameState?.status === "results" ? (
-        gameState?.status === "betting"
-        ? <Button
+        <Button
           id="openModals"
-          onClick={handleShowBet}
-        >Place a Bet</Button>
-        : <Button
-        id="openModals"
-        onClick={handleShowRes}
-      >See Results</Button>
+          onClick={gameState?.status === "betting" ? handleShowBet : handleShowRes}
+        >{gameState?.status === "betting" ? "Place a Bet" : "See Results"}
+        </Button>
       ) : null}
+      <div className="comment-box">
+        <div className="comments">
+          {raceComments.map((comment, index) => (
+            <p key={index}>{comment}</p>  
+          ))}
+        </div>
+      </div>
     </>
   );
 };
