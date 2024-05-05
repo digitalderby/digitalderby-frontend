@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import useCountdown from "../../hooks/useCountdown";
 import { SocketContext } from "../../contexts/SocketContext";
 
-const BettingMode = ({ show, handleClose }) => {
+const BettingMode = ({ show, handleClose, setSavedBet }) => {
   const { gameState, raceInfo, clientStatus } = useContext(SocketContext);
 
   const timer = useCountdown(new Date(gameState?.raceStartTime || Date.now()));
@@ -43,18 +43,13 @@ const BettingMode = ({ show, handleClose }) => {
     socket.emit("bet", { betValue, horseIdx }, (res) =>
       console.log(res.message)
     );
-
+    setSavedBet(horseIdx)
     setBetValues(Array(raceInfo?.race.horses.length || 4).fill(0));
   };
 
   if (!gameState || !raceInfo.race || !raceInfo.race.horses) {
     return <div>Loading betting information...</div>;
   }
-
-  const closeGame = () => {
-    socket.close();
-    navigate("/");
-  };
 
   const modalStyle = { backgroundColor: "black", color: "white" };
   const modalHeader = {

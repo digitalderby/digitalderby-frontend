@@ -18,6 +18,10 @@ const RacePage = () => {
     user,
     connected,
   } = useContext(SocketContext);
+
+  // Saved Bet index for displaying results
+  const [savedBet, setSavedBet] = useState(null)
+
   //if betMode is true, BetModal is displayed
   const initialState = { open: false, userClosed: false };
       // prevents reopening if user closed the modal
@@ -38,9 +42,13 @@ const RacePage = () => {
   function switchToBetMode() {
     autoCloseRes();
     handleShowBet();
+    setSavedBet(null) // reset chosen horse index
   }
+
   useEffect(() => {
-    // !betMode.open && !betMode.userClosed && switchToBetMode();
+    // !resultsMode.userClosed && handleShowRes();
+    // console.log(raceInfo)
+    // console.log(gameState)
     switch (gameState?.status) {
       case "betting":
         !betMode.open && !betMode.userClosed && switchToBetMode();
@@ -65,11 +73,13 @@ const RacePage = () => {
         show={betMode.open}
         handleClose={userCloseBet}
         user={user}
+        setSavedBet={setSavedBet}
       />
       <ResultsMode
         gameState={gameState}
         show={resultsMode.open}
         handleClose={userCloseRes}
+        savedBet={savedBet}
       />
       {gameState?.status === "betting" || gameState?.status === "results" ? (
         gameState?.status === "betting"
