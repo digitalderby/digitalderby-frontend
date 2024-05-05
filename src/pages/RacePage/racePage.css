@@ -45,3 +45,27 @@ span.flip {
       --translate: translate3d(-1000px, 0, 0); 
     }
   }
+
+  .comment-box {
+    position: fixed;
+    bottom: 0;
+    left: 10; 
+    top: 75%;
+    width: 40%; 
+    height: 100px;
+    padding: 10px;
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 10; 
+  }
+
+
+.comments p {
+    margin: 5px 0;
+    line-height: 1.4;
+    color: #fff;
+    font-size: 22px;
+    background-color: #333;
+}
