@@ -17,6 +17,7 @@ const RacePage = () => {
   const [raceComments, setRaceComments] = useState([]);
   const [betMode, setBetMode] = useState(initialState);
   const [resultsMode, setResultsMode] = useState(initialState);
+  const [savedBet, setSavedBet] = useState(null);  // Merged savedBet state
 
   const handleShowBet = () => {
     if (!betMode.open && !betMode.userClosed) {
@@ -61,11 +62,13 @@ const RacePage = () => {
         show={betMode.open}
         handleClose={closeBetMode}
         user={user}
+        setSavedBet={setSavedBet}  
       />
       <ResultsMode
         gameState={gameState}
         show={resultsMode.open}
         handleClose={closeResultsMode}
+        savedBet={savedBet}  
       />
       {gameState?.status === "betting" || gameState?.status === "results" ? (
         <Button

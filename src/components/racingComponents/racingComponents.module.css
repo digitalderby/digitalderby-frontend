@@ -14,6 +14,12 @@
     justify-content: space-between;
 }
 
+.modal {
+    background-color: black;
+    color: white;
+    word-wrap: none;
+}
+
 .wrapper {
     display: flex;
 }
@@ -104,6 +110,16 @@
     align-items: center;
 }
 
+.resultsBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resultsBody h1 {
+    font-size: 2em;
+}
+
 .results-container > div {
     border: solid 5px hsl(215, 39%, 42%);
     padding: 2em;
@@ -118,4 +134,12 @@
 
 .stats {
     color: white;
+}
+
+.winner {
+    margin: 10px;
+}
+
+.winner > h2{
+    font-size: 1.5em;
 }
