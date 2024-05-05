@@ -16,7 +16,7 @@ const UserProfile = () => {
       if (!clientStatus) return;
       setLoading(true);
       try {
-        const response = await api.get(`/users/{clientStatus.username}`)
+        const response = await api.get(`/users/${clientStatus.username}`)
         setUserData(response.data);
         setError(null);
       } catch (err) {
