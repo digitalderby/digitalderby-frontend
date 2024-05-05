@@ -17,19 +17,10 @@ const RacePage = () => {
   const [raceComments, setRaceComments] = useState([]);
   const [betMode, setBetMode] = useState(initialState);
   const [resultsMode, setResultsMode] = useState(initialState);
-  const [savedBet, setSavedBet] = useState(null);  // Merged savedBet state
+  const [savedBet, setSavedBet] = useState(null);
 
-  const handleShowBet = () => {
-    if (!betMode.open && !betMode.userClosed) {
-      setBetMode({ open: true, userClosed: false });
-    }
-  };
-
-  const handleShowRes = () => {
-    if (!resultsMode.open && !resultsMode.userClosed) {
-      setResultsMode({ open: true, userClosed: false });
-    }
-  };
+  const handleShowBet = () => setBetMode({ open: true, userClosed: false });
+  const handleShowRes = () => setResultsMode({ open: true, userClosed: false });
 
   const closeBetMode = () => setBetMode({ open: false, userClosed: true });
   const closeResultsMode = () => setResultsMode({ open: false, userClosed: true });
@@ -50,7 +41,11 @@ const RacePage = () => {
     }
 
     if (gameState?.status === "race" && gameState.eventMessages) {
-      setRaceComments((prevComments) => [...prevComments, ...gameState.eventMessages]);
+      const newComments = [...gameState.eventMessages];
+      setRaceComments((prevComments) => {
+        // Add new comments and ensure only the latest 3 are kept
+        return [...prevComments, ...newComments].slice(-3);
+      });
     }
   }, [gameState]);
 
@@ -62,13 +57,13 @@ const RacePage = () => {
         show={betMode.open}
         handleClose={closeBetMode}
         user={user}
-        setSavedBet={setSavedBet}  
+        setSavedBet={setSavedBet}
       />
       <ResultsMode
         gameState={gameState}
         show={resultsMode.open}
         handleClose={closeResultsMode}
-        savedBet={savedBet}  
+        savedBet={savedBet}
       />
       {gameState?.status === "betting" || gameState?.status === "results" ? (
         <Button
