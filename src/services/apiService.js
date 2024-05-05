@@ -1,10 +1,8 @@
 import { api } from "./apiConnection";
-import axios from "axios";
 
 
 
 // GET
-// TODO: update route address
 export const getProfileData = async (username) => {
     try {
         if (!username) {
@@ -23,7 +21,7 @@ export const getProfileData = async (username) => {
 
 export const getAllHorses = async () => {
     try {
-        const response = await axios.get('/horses');
+        const response = await api.get('/horses');
         console.log(response); 
         return response.data;
     } catch (error) {
@@ -108,9 +106,6 @@ export const deleteUser = async (user) => {
         throw error;
     }
 };
-
-
-//TODO: Logout user function
 
 export const logoutUser = () => {
     sessionStorage.removeItem('token');
