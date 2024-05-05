@@ -50,7 +50,7 @@ const RacePage = () => {
     }
 
     if (gameState?.status === "race" && gameState.eventMessages) {
-      setRaceComments((prevComments) => [...prevComments, ...gameState.eventMessages]);
+      setRaceComments(gameState.eventMessages);
     }
   }, [gameState]);
 
