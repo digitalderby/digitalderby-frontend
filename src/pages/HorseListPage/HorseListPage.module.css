@@ -37,12 +37,13 @@
   color: gold; 
 }
 
-/* Pagination container */
+
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  padding-top: 70px;
 }
 
 

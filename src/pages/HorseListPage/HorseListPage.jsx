@@ -8,7 +8,7 @@ function HorseListPage() {
     const navigate = useNavigate();
     const [favorites, setFavorites] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; 
+    const itemsPerPage = 20; 
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
