@@ -46,9 +46,6 @@ const RacePage = () => {
   }
 
   useEffect(() => {
-    // !resultsMode.userClosed && handleShowRes();
-    // console.log(raceInfo)
-    // console.log(gameState)
     switch (gameState?.status) {
       case "betting":
         !betMode.open && !betMode.userClosed && switchToBetMode();

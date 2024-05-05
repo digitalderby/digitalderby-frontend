@@ -1,4 +1,3 @@
-import { NavLink } from 'react-bootstrap'
 import { getImageUrl } from '../../utils'
 import { NavLink } from 'react-router-dom';
 import styles from './Hero.module.css'
