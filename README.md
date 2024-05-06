@@ -5,6 +5,11 @@
 ## Overview
  The Horse Racing Betting Simulator is a virtual betting app where users can participate in horse races by placing bets on their favorite horses. The app provides a realistic simulation of horse racing events, allowing users to experience the thrill of betting without real-world risks.
 
+**Deployed Frontend** - https://digital-derby.netlify.app/
+
+**Deployed Backend** - 
+https://digitalderby-backend-dev-58dcf88cbcc5.herokuapp.com/
+
 ## Key Features
 **Real-Time Betting:** Users can place bets in real-time on the same set of horses and races.
 
