@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getToken, removeToken, setToken } from '../services/tokenService';
-import { loginUser, registerUser } from '../services/apiService';
+import { deleteUser, loginUser, registerUser } from '../services/apiService';
 
 export const AuthContext = createContext(null);
 
@@ -38,8 +38,9 @@ export const AuthProvider = ({ children }) => {
       const response = await registerUser(username, password);
       console.log(response)
       if (response.status === 201) {
-        sessionStorage.setItem('token', response.data.token); 
+        setToken(response.data.token) 
         setUser(response.data);
+        checkIsLoggedIn()
         setError(null);  // Clear error on successful registration
         console.log('Registration successful:', response);
         return response
@@ -51,6 +52,17 @@ export const AuthProvider = ({ children }) => {
       console.error('Registration failed:', error);
     }
   };
+
+  const deleteUserProfile = async(username) => {
+    try {
+      const response = await deleteUser(username);
+      if (response.status === 200) {
+        console.log('deleted user')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const checkIsLoggedIn = () => {
     const token = getToken()
@@ -65,7 +77,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, isLoggedIn, checkIsLoggedIn, error }}>
+    <AuthContext.Provider value={{ user, login, register, deleteUserProfile, logout, isLoggedIn, checkIsLoggedIn, error }}>
       {children}
     </AuthContext.Provider>
   );
