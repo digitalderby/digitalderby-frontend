@@ -34,7 +34,7 @@ span.flip {
 #openModals {
   position: absolute;
   bottom: 5%;
-  left: 50%;
+  left: 45%;
 }
 
 @keyframes slide {
