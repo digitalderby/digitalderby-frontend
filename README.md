@@ -1,5 +1,7 @@
 # Digital Derby
 
+<img src='src/assets/readme/digital-derby-logo.png'>
+
 ## Overview
 #### The Horse Racing Betting Simulator is a virtual betting app where users can participate in horse races by placing bets on their favorite horses. The app provides a realistic simulation of horse racing events, allowing users to experience the thrill of betting without real-world risks.
 
@@ -28,3 +30,20 @@
 ## Credits
 ### Socket.io for real-time communication and updates.
 ### FontAwesome for icons used in the app.
+
+## Contributors
+Will F. 
+
+[https://github.com/Fekinox](https://github.com/Fekinox)
+
+Fergus  
+
+[https://github.com/dfergusbrown](https://github.com/dfergusbrown)
+
+Adonis 
+
+[https://github.com/nebstech](https://github.com/nebstech)
+
+Lando 
+
+[https://github.com/vitrineofcode](https://github.com/vitrineofcode)
