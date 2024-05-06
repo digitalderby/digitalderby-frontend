@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { SocketContext } from "../../contexts/SocketContext";
+import ClientCount from "./ClientCount";
 
 const horseIcons = ['🐴', '🦓', '🦄'];
 
@@ -11,6 +12,7 @@ const RaceMode = () => {
   return (
     <>
       <div className="h-full w-full flex justify-center items-center">
+        <ClientCount />
         <div id="raceScrollContainer">
           <div
             id="raceBackground"
@@ -22,7 +24,7 @@ const RaceMode = () => {
             }
           ></div>
           {gameState?.raceState?.horseStates?.map((horse, idx) => {
-            const posPercent = horse.position/raceInfo.race.raceLength
+            const posPercent = horse.position/raceInfo.race?.raceLength
             return (
               <div
                 key={idx}
