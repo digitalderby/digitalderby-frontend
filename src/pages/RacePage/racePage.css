@@ -78,6 +78,7 @@ span.flip {
     background-color: #333;
 }
 
+
 .spectatorCount {
   position: fixed;
   color: white;
@@ -92,3 +93,4 @@ span.flip {
   background-color: red;
   border-radius: 50%;
 }
+
