@@ -42,6 +42,7 @@
 
 ## Credits
 Socket.io for real-time communication and updates.
+
 FontAwesome for icons used in the app.
 
 ## Contributors
