@@ -20,7 +20,7 @@
 | Name              | Description           |
 |-------------------|----------------------|
 | React.js         | User Interface        |
-| Socket.io | Real-time Updates           |
+| Socket.io | Framework for efficient bidirectional communication between clients and servers          |
 | FontAwesome            |   Icons        |
 | CSS Modules           | Styling          |
 
