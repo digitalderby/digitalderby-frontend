@@ -23,7 +23,8 @@
 .username,
 .userId,
 .wallet,
-.bankruptcy {
+.bankruptcy,
+.favHorses {
     position: relative;
     left: 10%;
     margin: 10px 0;
@@ -38,7 +39,8 @@
 
 .userId,
 .wallet,
-.bankruptcy {
+.bankruptcy,
+.favHorses {
     opacity: 0.8;
     padding-top: 20px;
 }

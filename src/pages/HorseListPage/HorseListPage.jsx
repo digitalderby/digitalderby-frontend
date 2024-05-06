@@ -1,36 +1,72 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { api } from './../../services/apiConnection';
 import { useNavigate } from 'react-router-dom';
-import useAllHorses from '../../hooks/useAllHorses';
+import { SocketContext } from '../../contexts/SocketContext';
 import styles from './HorseListPage.module.css';
 
 function HorseListPage() {
-    const { horses, loading, error } = useAllHorses();
+    const { clientStatus } = useContext(SocketContext);
     const navigate = useNavigate();
+    const [horses, setHorses] = useState([]);
     const [favorites, setFavorites] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20; 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const itemsPerPage = 20;
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    useEffect(() => {
+        const fetchHorses = async () => {
+            setLoading(true);
+            try {
+                const response = await api.get('/horses');
+                setHorses(response.data);
+                if (clientStatus?.username) {
+                    const favsResponse = await api.get(`/users/${clientStatus.username}/favoriteHorses`);
+                    setFavorites(favsResponse.data.map(h => h._id));
+                }
+                setError(null);
+            } catch (err) {
+                setError('Failed to fetch horses');
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const handleHorseClick = (id) => {
+        fetchHorses();
+    }, [clientStatus?.username]);
+
+    const handleHorseClick = id => {
         navigate(`/horses/${id}`);
     };
 
-    const toggleFavorite = (horseId) => {
-        const updatedFavorites = favorites.includes(horseId)
-            ? favorites.filter((favId) => favId !== horseId)
-            : [...favorites, horseId];
-        setFavorites(updatedFavorites);
+    const toggleFavorite = async (horseId) => {
+        const isFavorite = favorites.includes(horseId);
+        const method = isFavorite ? 'delete' : 'post';
+        const username = clientStatus?.username;
+        if (!username) return;
+    
+        try {
+            setFavorites(prev => isFavorite
+                ? prev.filter(id => id !== horseId)
+                : [...prev, horseId]);
+    
+            const endpoint = `/users/${username}/favoriteHorses/${isFavorite ? horseId : ''}`;
+            await api[method](endpoint, isFavorite ? {} : { horseId });
+    
+        } catch (error) {
+            console.error('Failed to update favorites', error);
+            setFavorites(prev => isFavorite
+                ? [...prev, horseId]
+                : prev.filter(id => id !== horseId));
+        }
     };
-
-    // Calculate the currently displayed horses
+    
     const indexOfLastHorse = currentPage * itemsPerPage;
     const indexOfFirstHorse = indexOfLastHorse - itemsPerPage;
     const currentHorses = horses.slice(indexOfFirstHorse, indexOfLastHorse);
 
-    // Change page
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
         <div>
@@ -40,11 +76,9 @@ function HorseListPage() {
                     <div key={horse._id} className={styles.horseCard} onClick={() => handleHorseClick(horse._id)}>
                         {horse.name}
                         <span
-                            className={`${styles.favoriteIcon} ${
-                                favorites.includes(horse._id) ? styles.favoriteActive : ''
-                            }`}
+                            className={`${styles.favoriteIcon} ${favorites.includes(horse._id) ? styles.favoriteActive : ''}`}
                             onClick={(e) => {
-                                e.stopPropagation(); // Prevent the horse card click event from firing
+                                e.stopPropagation();
                                 toggleFavorite(horse._id);
                             }}
                         >
