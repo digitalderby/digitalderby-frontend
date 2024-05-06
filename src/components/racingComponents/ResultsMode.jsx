@@ -32,10 +32,6 @@ const ResultsMode = ({ show, handleClose, savedBet }) => {
   let isUserWinner = raceInfo.race.horses[savedBet]?.id === winner.horseInfo.id
   savedBet === null ? isUserWinner = null : null // if user didn't place a bet
 
-  console.log("savedBet", savedBet)
-  console.log("winningHorse", winner)
-  console.log("userWinner:", isUserWinner)
-
   const modalStyle = {backgroundColor: "black", color: "white"}
 
   return (
